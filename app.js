@@ -1,15 +1,19 @@
 var map, infoWindow;
-var region = "Region 1";
-var prevLocation = 0;
+var region = "Region 0";
+var prevLat = 0;
+var prevLong = 0;
 
 //Radar work
-Radar.initialize("prj_live_pk_5542d11954928326db9982907c69162e5c73160d");
+Radar.initialize("prj_test_pk_c3a8e42cc392005ceac13fb535867c684ee1b208");
 
-Radar.setUserId("ID");
+Radar.setUserId(Date.now);
+
 
 Radar.trackOnce(function(err, result) {
   if (!err) {
-    console.log(result.location);
+    document.getElementById("info").innerHTML = "yeet";
+  } else {
+    console.log(err);
   }
 });
 
@@ -30,7 +34,7 @@ function initMap() {
       };
 
       infoWindow.setPosition(pos);
-      infoWindow.setContent('Homebase');
+      infoWindow.setContent(region);
       infoWindow.open(map);
       map.setCenter(pos);
     }, function() {
