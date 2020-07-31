@@ -20,6 +20,14 @@
 #buttonthing{
   text-align: center;
 }
+#rickgif{
+  align-content: center;
+  height: 300%;
+}
+#doge{
+  align-content: center;
+  height: 300%;
+}
 html, body {
   height: 100%;
   margin: 0;
