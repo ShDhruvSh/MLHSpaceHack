@@ -1,0 +1,15 @@
+#map {
+  height: 90%;
+}
+#title {
+  height: 10%;
+  margin: 0;
+  padding: 0;
+  margin: auto;
+  text-align: center;
+}
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
