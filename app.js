@@ -1,5 +1,6 @@
 var map, infoWindow;
 var region = "Region 1";
+var prevLocation = 0;
 
 //Radar work
 Radar.initialize("prj_live_pk_5542d11954928326db9982907c69162e5c73160d");
@@ -15,7 +16,7 @@ Radar.trackOnce(function(err, result) {
 // default
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -34.397, lng: 150.644},
+    center: {lat: 39.673370, lng: 255.036621},
     zoom: 600
   });
   infoWindow = new google.maps.InfoWindow;
