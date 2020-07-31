@@ -17,15 +17,19 @@
     <script>
 
       function calcDistanceTravelled(lat1, lat2, long1, long2) {
-        var lat1Radians = lat1/(180/Math.PI);
-        var lat2Radians = lat2/(180/Math.PI);
-        var long1Radians = long1/(180/Math.PI);
-        var long2Radians = long2/(180/Math.PI);
+        lat1 = lat1/(180/Math.PI);
+        lat2 = lat2/(180/Math.PI);
+        long1 = long1/(180/Math.PI);
+        long2 = long2/(180/Math.PI);
 
-        a = 3963.0 * Math.arccos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(long2 – long1))
+        dLong = long2-long1;
+
+        a = 3963.0 * Math.acos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLong));
 
         window.alert(a);
-      }
+        //window.alert(long1);
+        //window.alert(long2);
+        }
 
     </script>
 
@@ -41,8 +45,9 @@
     <div id="description">
       <p>Walk to different locations to earn points, but make sure to socially
         distance and wear a mask!</p>
-      <button onClick="calcDistanceTravelled(0,0,1,1)" id = "distanceButton">yay</button>
     </div>
+
+    <button onClick="calcDistanceTravelled(0,0,1,1)" id = "distanceButton">yay</button>
 
     <div id="map"></div>
 
