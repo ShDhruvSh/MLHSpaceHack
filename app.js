@@ -2,6 +2,10 @@ var map, infoWindow;
 var region = "Region 0";
 var prevLat = 0;
 var prevLong = 0;
+var currLat = 0;
+var currLong = 0;
+var distanceTravelled = 0;
+var score = distanceTravelled * 100;
 
 //Radar work
 Radar.initialize("prj_test_pk_c3a8e42cc392005ceac13fb535867c684ee1b208");

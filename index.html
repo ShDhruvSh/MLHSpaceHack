@@ -8,6 +8,26 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
+    <script src="https://js.radar.io/v3/radar.min.js"></script>
+    <script src="app.js">
+    </script>
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrD6oH-AbbHdvwAZERs_sJVvWuitpdMcM&callback=initMap">
+    </script>
+    <script>
+
+      function calcDistanceTravelled(lat1, lat2, long1, long2) {
+        var lat1Radians = lat1/(180/Math.PI);
+        var lat2Radians = lat2/(180/Math.PI);
+        var long1Radians = long1/(180/Math.PI);
+        var long2Radians = long2/(180/Math.PI);
+
+        a = 3963.0 * Math.arccos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(long2 – long1))
+
+        window.alert(a);
+      }
+
+    </script>
 
   </head>
 
@@ -21,18 +41,12 @@
     <div id="description">
       <p>Walk to different locations to earn points, but make sure to socially
         distance and wear a mask!</p>
+      <button onClick="calcDistanceTravelled(0,0,1,1)">yay</button>
     </div>
 
     <div id="map"></div>
 
-    <script src="https://js.radar.io/v3/radar.min.js"></script>
-    <script src="app.js">
-    </script>
-    <script defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrD6oH-AbbHdvwAZERs_sJVvWuitpdMcM&callback=initMap">
-    </script>
 
-    
   </body>
 
 
