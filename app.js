@@ -8,9 +8,10 @@ Radar.setUserId("ID");
 
 Radar.trackOnce(function(err, result) {
   if (!err) {
-    // do something with result.location, result.events, result.user
+    console.log(result.location);
   }
 });
+
 // default
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
