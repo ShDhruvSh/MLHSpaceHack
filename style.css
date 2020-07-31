@@ -1,10 +1,19 @@
 #map {
-  height: 90%;
+  height: 85%;
+  width: 85%;
+  margin: auto;
 }
 #title {
-  height: 10%;
-  margin: 0;
+  height: 5%;
   padding: 0;
+  border: 0;
+  margin: auto;
+  text-align: center;
+}
+#description {
+  height: 5%;
+  padding: 0;
+  border: 0;
   margin: auto;
   text-align: center;
 }
