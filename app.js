@@ -9,10 +9,10 @@ var currLat;
 var currLong;
 var distanceTravelled;
 var score;
-var now = new Date();
-var hour = now.getHours();
-var minute = now.getMinutes();
-var second = now.getSeconds();
+var now;
+var startHour;
+var startMinute;
+var startSecond;
 var firebaseConfig = {
   apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
   authDomain: "space-65ce3.firebaseapp.com",
@@ -106,7 +106,14 @@ function notWearingMask(){
 }
 
 function updateScore() {
-  document.getElementById("scoreTracker").innerHTML = "Score: " + score;
+  now = new Date();
+  startHour = now.getHours();
+  startMinute = now.getMinutes();
+  startSecond = now.getSeconds();
+  numSeconds = startHour*360 + startMinute*60 + startSecond
+  score = 1000;
+
+  document.getElementById("scoreTracker").innerHTML = "Time: " + startHour + " ";
 }
 
 
