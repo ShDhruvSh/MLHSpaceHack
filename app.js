@@ -137,7 +137,7 @@ function updateScore() {
     //the user is at home
   }
   document.getElementById("scoreTracker").innerHTML = "Score: " + score;
-  document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec\n" + numNewSeconds + " everything in seconds lmao";
+  document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec";
 }
 
 
