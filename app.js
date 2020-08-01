@@ -25,7 +25,7 @@ function calcDistanceTravelled(lat1, lat2, long1, long2) {
 
   a = 3963.0 * Math.acos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLong));
 
-  window.alert(a);
+  window.alert("You have travelled " + a + " miles!");
 }
 
 function updatePrevCoords(){
