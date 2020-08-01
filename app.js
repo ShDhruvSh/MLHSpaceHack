@@ -17,7 +17,7 @@ require("firebase/firestore");
 firebase.initializeApp({
   apiKey: 'AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY',
   authDomain: 'space-65ce3.firebaseapp.com',
-  projectId: '### CLOUD FIRESTORE PROJECT ID ###'
+  projectId: 'space-65ce3'
 });
 
 var db = firebase.firestore();
