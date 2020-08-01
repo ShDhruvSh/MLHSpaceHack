@@ -38,7 +38,6 @@ var db = firebase.firestore();
 
 const docRef = db.doc("samples/users");
 
-
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
   lat2 = lat2/(180/Math.PI);
@@ -100,7 +99,9 @@ function selectMask(){
   document.body.style.backgroundImage = "url('Background.jpg')"
   document.body.style.backgroundSize = "auto"
   updateYes();
-  window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!")
+  window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!");
+  document.getElementById("question").style.display = "none";
+
 }
 
 function notWearingMask(){
@@ -110,6 +111,7 @@ function notWearingMask(){
   document.body.style.backgroundSize = "200% 200%";
   updateNo();
   window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+  document.getElementById("question").style.display = "none";
 }
 function startScore(){
   if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
@@ -355,8 +357,6 @@ function getLocation(map, infoWindow){
       } else {
         //the user is at home
       }
-
-      console.log(pos);
 
 
       }, function() {
