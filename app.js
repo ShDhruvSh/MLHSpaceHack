@@ -1,12 +1,5 @@
 var map, infoWindow;
 var region = "Region 0";
-var prevLat = position.coords.latitude;
-var prevLong = position.coords.longitude;
-var currLat = position.coords.latitude;
-var currLong = position.coords.longitude;
-var distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
-var isRedTeam = true;
-var score = score + (distanceTravelled * 100);
 
 //Radar work
 Radar.initialize("prj_test_pk_c3a8e42cc392005ceac13fb535867c684ee1b208");
@@ -68,8 +61,13 @@ function initMap() {
         lng: position.coords.longitude
       };
 
-      currLat = position.coords.latitude;
-      currLong = position.coords.longitude;
+      var prevLat = position.coords.latitude;
+      var prevLong = position.coords.longitude;
+      var currLat = position.coords.latitude;
+      var currLong = position.coords.longitude;
+      var distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
+      var score = score + (distanceTravelled * 100);
+
       infoWindow.setPosition(pos);
       infoWindow.setContent(region);
       infoWindow.open(map);
