@@ -6,6 +6,19 @@ var currLat;
 var currLong;
 var distanceTravelled;
 var score;
+const firebase = require("firebase");
+// Required for side-effects
+require("firebase/firestore");
+
+
+// Initialize Cloud Firestore through Firebase
+firebase.initializeApp({
+  apiKey: 'AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY',
+  authDomain: '### FIREBASE AUTH DOMAIN ###',
+  projectId: '### CLOUD FIRESTORE PROJECT ID ###'
+});
+
+var db = firebase.firestore();
 
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
