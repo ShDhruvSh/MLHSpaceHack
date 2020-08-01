@@ -369,9 +369,9 @@ function getLocation(map, infoWindow){
                   // Call function get and set location
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
-          //lat:39.709451,
+          //lat: 39.709451,
           //lng: -105.084629
-          lat:position.coords.latitude,
+          lat: position.coords.latitude,
           lng: position.coords.longitude
         };
 
@@ -399,10 +399,10 @@ function getLocation(map, infoWindow){
 
       marker2 = new google.maps.Marker({position: pos, map: map, icon: astronaut});
 
-      if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)" || document.getElementById("main_title").innerHTML != "Spacing Out!"){
+      if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
         //the user is at the store
       } else {
-        document.getElementById("question").style.display = "none";
+        //the user is at home
       }
 
 
@@ -426,7 +426,6 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     var title = "Spacing Out! (Earth)";
-    startScore();
     for(var i = 0; i < results.length; i++){
       if(createMarker(results[i]) < .02){
         title = "Spacing Out! (USS " + results[i].name + ")";
