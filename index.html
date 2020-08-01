@@ -15,10 +15,16 @@
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_fDd-adp11MjYr4FjHMdEpkpCq9AGk9w&callback=initMap&libraries=geometry,places">
     </script>
 
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
+
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+
   </head>
 
 
-  <body id = "space">
+  <body id = "space" href="https://space-65ce3.firebaseio.com">
 
     <p id="scoreTracker">Score: </p>
 
@@ -31,6 +37,15 @@
         distance and wear a mask!</p>
     </div>
 
+
+
+
+
+
+
+
+
+
     <div id="teamSelect">
       <button onClick="selectRedTeam()" id = "redTeamButton">Join Red Team!</button>
       <button onClick="selectBlueTeam()" id = "blueTeamButton">Join Blue Team!</button>
@@ -40,9 +55,8 @@
 
   </div>
 
-  <div id="question">
-    <p>Are you wearing a mask? Please answer honestly
-    <br> for the safety of you and everyone around you.</p>
+  <div>
+    <p>Are you wearing a mask? Please answer honestly for the safety of you and everyone around you.</p>
     <button onClick="selectMask()" id = "maskButtonY">Yes</button>
     <button onClick="notWearingMask()" id = "maskButtonN">No</button>
   </div>

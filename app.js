@@ -1,4 +1,3 @@
-var map, infoWindow;
 var region = "Astronaut (You)";
 var all_markers = [];
 var marker2;
@@ -10,19 +9,23 @@ var currLat;
 var currLong;
 var distanceTravelled;
 var score;
-const firebase = require("firebase");
-// Required for side-effects
-require("firebase/firestore");
+var firebaseConfig = {
+  apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
+  authDomain: "space-65ce3.firebaseapp.com",
+  databaseURL: "https://space-65ce3.firebaseio.com",
+  projectId: "space-65ce3",
+  storageBucket: "space-65ce3.appspot.com",
+  messagingSenderId: "62019877260",
+  appId: "1:62019877260:web:115d17a6348d265027bea9",
+  measurementId: "G-C9NHYCEZCR"
+};
 
 
 // Initialize Cloud Firestore through Firebase
-firebase.initializeApp({
-  apiKey: 'AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY',
-  authDomain: 'space-65ce3.firebaseapp.com',
-  projectId: 'space-65ce3'
-});
-
+firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
+
+const docRef = db.doc("samples/users");
 
 
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
@@ -53,9 +56,36 @@ function selectBlueTeam(){
   window.alert(isRedTeam);
 }
 
+function updateYes(){
+
+  docRef.set({
+    hotDogStatus: 0
+  })
+  .then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+  })
+  .catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+}
+
+
+function updateNo(){
+
+  docRef.set({
+    hotDogStatus: 0
+  })
+  .then(function(docRef) {
+    console.log("Document written with ID: ", docRef.id);
+  })
+  .catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+}
+
 function selectMask(){
   isWearingMask = true;
-  updateData();
+  updateYes();
   window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!")
 }
 
@@ -64,7 +94,7 @@ function notWearingMask(){
   document.body.style.background = "none";
   document.body.style.backgroundColor = "rgba(255,0,0,0.9)";
   document.body.style.backgroundSize = "200% 200%";
-  updateData();
+  updateNo();
   window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
 }
 
@@ -72,14 +102,7 @@ function updateScore() {
   document.getElementById("scoreTracker").innerHTML = "Score: " + score;
 }
 
-function updateData(){
-  var yesNo = db.collection("YesNo");
-    yesNo.update("users").add({
-      first: "Ada",
-      last: "Lovelace",
-      born: 1815
-  })
-}
+
 
 // default
 function initMap() {
