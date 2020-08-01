@@ -1,11 +1,11 @@
 var map, infoWindow;
 var region = "Region 0";
-var prevLat = 0;
-var prevLong = 0;
-var currLat = 0;
-var currLong = 0;
-var distanceTravelled = 0;
-var score = distanceTravelled * 100;
+var prevLat = position.coords.latitude;
+var prevLong = position.coords.longitude;
+var currLat = position.coords.latitude;
+var currLong = position.coords.longitude;
+var distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
+var score = score + (distanceTravelled * 100);
 
 //Radar work
 Radar.initialize("prj_test_pk_c3a8e42cc392005ceac13fb535867c684ee1b208");
@@ -20,6 +20,24 @@ Radar.trackOnce(function(err, result) {
     console.log(err);
   }
 });
+
+function calcDistanceTravelled(lat1, lat2, long1, long2) {
+  lat1 = lat1/(180/Math.PI);
+  lat2 = lat2/(180/Math.PI);
+  long1 = long1/(180/Math.PI);
+  long2 = long2/(180/Math.PI);
+
+  dLong = long2-long1;
+
+  a = 3963.0 * Math.acos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLong));
+
+  window.alert(a);
+}
+
+function updatePrevCoords(){
+  if (currLat != prevLat) prevLat = currLat;
+  if (currLong != prevLong) prevLong = currLong;
+}
 
 // default
 function initMap() {

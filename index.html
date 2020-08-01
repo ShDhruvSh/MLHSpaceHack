@@ -4,7 +4,7 @@
 
   <head>
 
-    <title>Geolocation</title>
+    <title>Spacing Out!</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
@@ -13,24 +13,6 @@
     </script>
     <script defer
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDrD6oH-AbbHdvwAZERs_sJVvWuitpdMcM&callback=initMap">
-    </script>
-    <script>
-
-      function calcDistanceTravelled(lat1, lat2, long1, long2) {
-        lat1 = lat1/(180/Math.PI);
-        lat2 = lat2/(180/Math.PI);
-        long1 = long1/(180/Math.PI);
-        long2 = long2/(180/Math.PI);
-
-        dLong = long2-long1;
-
-        a = 3963.0 * Math.acos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLong));
-
-        window.alert(a);
-        //window.alert(long1);
-        //window.alert(long2);
-        }
-
     </script>
 
   </head>
