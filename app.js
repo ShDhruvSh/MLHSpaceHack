@@ -36,10 +36,10 @@ setInterval(updateScore, 1000);
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
-const docRefR = db.doc("teams/red");
-const docRefB = db.doc("teams/blue");
+const docRefR = db.doc("samples/red");
+const docRefB = db.doc("samples/blue");
 const increment = firebase.firestore.FieldValue.increment(1);
-
+//const increment = 69;
 
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
@@ -71,9 +71,9 @@ function selectBlueTeam(){
 
 function updateYesR(){
 
-  docRefR.set({
-    yes: 1,
-    total: 1
+  docRefR.update({
+    yes: increment,
+    total: increment
   })
   .then(function(docRefR) {
     console.log("Document written with ID: ", docRefR.id);
