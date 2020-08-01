@@ -1,6 +1,6 @@
 var map, infoWindow;
 var region = "Region 0";
-
+var nearby = [];
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
   lat2 = lat2/(180/Math.PI);
@@ -43,8 +43,8 @@ function initMap() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+        lat:39.709451,
+        lng: -105.084629
       };
 
       var prevLat = position.coords.latitude;
@@ -58,6 +58,33 @@ function initMap() {
       infoWindow.setContent(region);
       infoWindow.open(map);
       map.setCenter(pos);
+
+      var request = {
+      location: pos,
+      radius: '10',
+      query: 'store'
+    };
+
+    service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, callback, pos);
+    var service = new google.maps.DistanceMatrixService();
+    for(var i = 0; i < nearby.length; i++){
+      console.log(nearby[i]);
+    service.getDistanceMatrix(
+      {
+        origins: [pos, nearby[i]],
+        destinations: ["curr", "store"],
+        travelMode: 'DRIVING',
+        transitOptions: TransitOptions,
+        drivingOptions: DrivingOptions,
+        unitSystem: UnitSystem,
+        avoidHighways: Boolean,
+        avoidTolls: Boolean,
+      }, callback);
+
+    }
+
+
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
@@ -65,6 +92,8 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
+
+
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -73,4 +102,31 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         'Error: The Geolocation service failed.' :
                         'Error: Your browser doesn\'t support geolocation.');
   infoWindow.open(map);
+}
+
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    for (var i = 0; i < results.length; i++) {
+      nearby[i] = results[i];
+    }
+  }
+}
+
+function callback_distance(response, status) {
+  if (status == 'OK') {
+    var origins = response.originAddresses;
+    var destinations = response.destinationAddresses;
+
+    for (var i = 0; i < origins.length; i++) {
+      var results = response.rows[i].elements;
+      for (var j = 0; j < results.length; j++) {
+        var element = results[j];
+        var distance = element.distance.text;
+        console.log(distance);
+        var duration = element.duration.text;
+        var from = origins[i];
+        var to = destinations[j];
+      }
+    }
+  }
 }
