@@ -57,8 +57,8 @@ function selectMask(){
 
 function notWearingMask(){
   isWearingMask = false;
-  document.body.style.backgroundImage = "url('red.png')";
-  document.body.style.backgroundColor = "red";
+  document.body.style.background = "none";
+  document.body.style.backgroundColor = "rgba(255,0,0,0.8)";
   document.body.style.backgroundSize = "200% 200%";
   window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
 }
