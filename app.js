@@ -1,5 +1,11 @@
 var map, infoWindow;
 var region = "Region 0";
+var prevLat;
+var prevLong;
+var currLat;
+var currLong;
+var distanceTravelled;
+var score;
 
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
@@ -30,7 +36,8 @@ function selectBlueTeam(){
 }
 
 function updateScore() {
-
+  var txtOutput = document.getElementById("scoreTracker");
+  txtOutput = "Score: " + score;
 }
 
 // default
@@ -51,12 +58,13 @@ function initMap() {
         lng: position.coords.longitude
       };
 
-      var prevLat = position.coords.latitude;
-      var prevLong = position.coords.longitude;
-      var currLat = position.coords.latitude;
-      var currLong = position.coords.longitude;
-      var distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
-      var score = score + (distanceTravelled * 100);
+      prevLat = position.coords.latitude;
+      prevLong = position.coords.longitude;
+      currLat = position.coords.latitude;
+      currLong = position.coords.longitude;
+      distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
+      score = 100;
+      updateScore();
 
       infoWindow.setPosition(pos);
       infoWindow.setContent(region);
