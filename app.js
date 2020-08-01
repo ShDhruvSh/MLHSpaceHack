@@ -399,10 +399,10 @@ function getLocation(map, infoWindow){
 
       marker2 = new google.maps.Marker({position: pos, map: map, icon: astronaut});
 
-      if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+      if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)" || document.getElementById("main_title").innerHTML != "Spacing Out!"){
         //the user is at the store
       } else {
-        //the user is at home
+        document.getElementById("question").style.display = "none";
       }
 
 
