@@ -24,10 +24,12 @@ Radar.trackOnce(function(err, result) {
 // default
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: 39.673370, lng: 255.036621},
+    center: {lat: -34.397, lng: 150.644},
     zoom: 600
   });
   infoWindow = new google.maps.InfoWindow;
+
+
 
   // get location
   if (navigator.geolocation) {
