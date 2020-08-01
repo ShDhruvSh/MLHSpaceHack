@@ -28,9 +28,23 @@
   text-align: center;
   position: relative;
   width: 25%;
+<<<<<<< HEAD
+  padding-bottom: 50px;
+  box-shadow: 0px 0px 7px #FFF;
+  background-color: #243d4c;
+  padding: 0% 0.5% 0.5% 0.5%;
+}
+
+#scoreBox{
+  padding-left: 20px;
+  width: 10%;
+  box-shadow: 0px 0px 7px #FFF;
+  background-color: #243d4c;
+=======
   height: 10%;
   background-color: black;
   padding: 0% 0.5% 0.5% 0.5%;
+>>>>>>> 44258a38617749ae1331c08b7c36117cdd302132
 }
 html {
   height: 100%;
@@ -47,6 +61,9 @@ body {
   background-repeat: no-repeat, repeat;
   background-color: #cccccc;
   background-size: auto;
+  font-family: video,serif !important;
+  font-weight: 400;
+  font-style: normal;
 }
 
 
@@ -91,4 +108,9 @@ body {
   border-radius: 2px;
   transition-duration: 0.4s;
 }
+
+
+a{
+  text-decoration: none !important;
+  color: #FFF !important;
 }
