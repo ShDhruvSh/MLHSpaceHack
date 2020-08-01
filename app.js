@@ -71,9 +71,9 @@ function selectBlueTeam(){
 
 function updateYesR(){
 
-  docRefR.update({
-    Yes: increment,
-    Total: increment
+  docRefR.set({
+    yes: 1,
+    total: 1
   })
   .then(function(docRefR) {
     console.log("Document written with ID: ", docRefR.id);
@@ -87,8 +87,8 @@ function updateYesR(){
 function updateNoR(){
 
   docRefR.update({
-    No: increment,
-    Total: increment
+    no: increment,
+    total: increment
   })
   .then(function(docRefR) {
     console.log("Document written with ID: ", docRefR.id);
@@ -101,8 +101,8 @@ function updateNoR(){
 function updateYesB(){
 
   docRefB.update({
-    No: increment,
-    Total: increment
+    yes: increment,
+    total: increment
   })
   .then(function(docRefB) {
     console.log("Document written with ID: ", docRefB.id);
@@ -116,8 +116,8 @@ function updateYesB(){
 function updateNoB(){
 
   docRefB.update({
-    No: increment,
-    Total: increment
+    no: increment,
+    total: increment
   })
   .then(function(docRefB) {
     console.log("Document written with ID: ", docRefB.id);
@@ -136,7 +136,7 @@ function selectMask(){
   {
     updateYesR();
   }
-  else if(!isRedTEam)
+  else if(!isRedTeam)
   {
     updateYesB();
   }
@@ -154,7 +154,7 @@ function notWearingMask(){
   {
     updateNoR();
   }
-  else if(!isRedTEam)
+  else if(!isRedTeam)
   {
     updateNoB();
   }
