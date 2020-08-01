@@ -26,7 +26,13 @@ html, body {
   height: 100%;
   margin: 0;
   padding: 0;
+  color: white;
+  background-image: url("Background.jpg");
+  background-repeat: no-repeat, repeat;
+  background-color: #cccccc;
+  background-size: auto;
 }
+
 
 #maskButtonY {
   background-color: #4CAF50; /* Green */
@@ -66,4 +72,5 @@ html, body {
   font-size: 16px;
   border-radius: 2px;
   transition-duration: 0.4s;
+}
 }
