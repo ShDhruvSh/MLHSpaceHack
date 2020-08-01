@@ -38,7 +38,7 @@ html, body {
 }
 
 
-#maskButtonY {
+#maskButtonY{
   background-color: #4CAF50; /* Green */
   border: none;
   color: white;
@@ -51,6 +51,9 @@ html, body {
   margin-left: 66px;
   transition-duration: 0.4s;
   position: relative;
+}
+.button1:hover{
+
 }
 
 
@@ -79,5 +82,4 @@ html, body {
   font-size: 16px;
   border-radius: 2px;
   transition-duration: 0.4s;
-}
 }
