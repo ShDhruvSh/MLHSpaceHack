@@ -5,6 +5,7 @@ var prevLong = position.coords.longitude;
 var currLat = position.coords.latitude;
 var currLong = position.coords.longitude;
 var distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
+var isRedTeam = true;
 var score = score + (distanceTravelled * 100);
 
 //Radar work
@@ -39,6 +40,16 @@ function updatePrevCoords(){
   if (currLong != prevLong) prevLong = currLong;
 }
 
+function selectRedTeam(){
+  isRedTeam = true;
+  window.alert(isBlueTeam);
+}
+
+function selectBlueTeam(){
+  isRedTeam = false;
+  window.alert(isRedTeam);
+}
+
 // default
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
@@ -57,6 +68,8 @@ function initMap() {
         lng: position.coords.longitude
       };
 
+      currLat = position.coords.latitude;
+      currLong = position.coords.longitude;
       infoWindow.setPosition(pos);
       infoWindow.setContent(region);
       infoWindow.open(map);
