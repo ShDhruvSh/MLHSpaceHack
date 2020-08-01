@@ -1,5 +1,7 @@
 var map, infoWindow;
-var region = "Region 0";
+var region = "Astronaut (You)";
+var all_markers = [];
+var marker2;
 var isRedTeam;
 var isWearingMask;
 var prevLat;
@@ -21,6 +23,7 @@ firebase.initializeApp({
 });
 
 var db = firebase.firestore();
+
 
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
@@ -71,18 +74,179 @@ function updateScore() {
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 39.673370, lng: 255.036621},
-    zoom: 600
+    zoom: 600,
+    styles: [
+            {
+              elementType: "geometry",
+              stylers: [
+                {
+                  color: "#242f3e"
+                }
+              ]
+            },
+            {
+              elementType: "labels.text.stroke",
+              stylers: [
+                {
+                  color: "#242f3e"
+                }
+              ]
+            },
+            {
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#746855"
+                }
+              ]
+            },
+            {
+              featureType: "administrative.locality",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#d59563"
+                }
+              ]
+            },
+            {
+              featureType: "poi",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#d59563"
+                }
+              ]
+            },
+            {
+              featureType: "poi.park",
+              elementType: "geometry",
+              stylers: [
+                {
+                  color: "#263c3f"
+                }
+              ]
+            },
+            {
+              featureType: "poi.park",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#6b9a76"
+                }
+              ]
+            },
+            {
+              featureType: "road",
+              elementType: "geometry",
+              stylers: [
+                {
+                  color: "#38414e"
+                }
+              ]
+            },
+            {
+              featureType: "road",
+              elementType: "geometry.stroke",
+              stylers: [
+                {
+                  color: "#212a37"
+                }
+              ]
+            },
+            {
+              featureType: "road",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#9ca5b3"
+                }
+              ]
+            },
+            {
+              featureType: "road.highway",
+              elementType: "geometry",
+              stylers: [
+                {
+                  color: "#746855"
+                }
+              ]
+            },
+            {
+              featureType: "road.highway",
+              elementType: "geometry.stroke",
+              stylers: [
+                {
+                  color: "#1f2835"
+                }
+              ]
+            },
+            {
+              featureType: "road.highway",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#f3d19c"
+                }
+              ]
+            },
+            {
+              featureType: "transit",
+              elementType: "geometry",
+              stylers: [
+                {
+                  color: "#2f3948"
+                }
+              ]
+            },
+            {
+              featureType: "transit.station",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#d59563"
+                }
+              ]
+            },
+            {
+              featureType: "water",
+              elementType: "geometry",
+              stylers: [
+                {
+                  color: "#17263c"
+                }
+              ]
+            },
+            {
+              featureType: "water",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#515c6d"
+                }
+              ]
+            },
+            {
+              featureType: "water",
+              elementType: "labels.text.stroke",
+              stylers: [
+                {
+                  color: "#17263c"
+                }
+              ]
+            }
+          ]
   });
   infoWindow = new google.maps.InfoWindow;
-
-
 
   // get location
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
-        lat: position.coords.latitude,
-        lng: position.coords.longitude
+        lat:39.709451,
+        lng: -105.084629
+        //lat:position.coords.latitude,
+        //lng: position.coords.longitude
       };
 
       prevLat = position.coords.latitude;
@@ -97,6 +261,27 @@ function initMap() {
       infoWindow.setContent(region);
       infoWindow.open(map);
       map.setCenter(pos);
+
+      var request = {
+      location: pos,
+      radius: '10',
+      query: 'store'
+    };
+
+    service = new google.maps.places.PlacesService(map);
+    service.textSearch(request, callback);
+
+    var astronaut = "https://img.icons8.com/officel/80/000000/astronaut.png";
+
+    marker2 = new google.maps.Marker({position: pos, map: map, icon: astronaut});
+
+    if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+      //the user is at the store
+    } else {
+      //the user is at home
+    }
+
+
     }, function() {
       handleLocationError(true, infoWindow, map.getCenter());
     });
@@ -104,6 +289,8 @@ function initMap() {
     // Browser doesn't support Geolocation
     handleLocationError(false, infoWindow, map.getCenter());
   }
+
+
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
@@ -113,3 +300,40 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
                         'Error: Your browser doesn\'t support geolocation.');
   infoWindow.open(map);
 }
+
+function callback(results, status) {
+  if (status == google.maps.places.PlacesServiceStatus.OK) {
+    var title = "Spacing Out! (Earth)";
+    for(var i = 0; i < results.length; i++){
+      if(createMarker(results[i]) < .02){
+        title = "Spacing Out! USS " + results[i].name;
+      }
+    }
+
+    document.getElementById("main_title").innerHTML = title;
+
+  }
+}
+
+function createMarker(place) {
+  var shuttle = "https://img.icons8.com/color/96/000000/launched-rocket.png";
+  const marker = new google.maps.Marker({
+    map,
+    position: place.geometry.location,
+    icon: shuttle,
+    title: place.name
+  });
+
+  return haversine_distance(marker, marker2);
+}
+
+function haversine_distance(mk1, mk2) {
+      var R = 3958.8; // Radius of the Earth in miles
+      var rlat1 = mk1.position.lat() * (Math.PI/180); // Convert degrees to radians
+      var rlat2 = mk2.position.lat() * (Math.PI/180); // Convert degrees to radians
+      var difflat = rlat2-rlat1; // Radian difference (latitudes)
+      var difflon = (mk2.position.lng()-mk1.position.lng()) * (Math.PI/180); // Radian difference (longitudes)
+
+      var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+      return d;
+    }
