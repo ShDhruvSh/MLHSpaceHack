@@ -12,14 +12,15 @@
     <script src="app.js">
     </script>
     <script defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_fDd-adp11MjYr4FjHMdEpkpCq9AGk9w&callback=initMap&libraries=geometry,places">
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_fDd-adp11MjYr4FjHMdEpkpCq9AGk9w&callback=initMap">
     </script>
-
 
   </head>
 
 
-  <body>
+  <body id = "space">
+
+    <p id="scoreTracker">Score: </p>
 
     <div id="title">
       <h1 id="main_title">Spacing Out!</h1>
@@ -39,10 +40,11 @@
 
   </div>
 
-  <div>
-    <p>Are you wearing a mask? Please answer honestly for the safety of you and everyone around you.</p>
-    <button onClick="mask" id = "maskButtonY">Yes</button>
-    <button onClick="mask" id = "maskButtonN">No</button>
+  <div id="question">
+    <p>Are you wearing a mask? Please answer honestly
+    <br> for the safety of you and everyone around you.</p>
+    <button onClick="selectMask()" id = "maskButtonY">Yes</button>
+    <button onClick="notWearingMask()" id = "maskButtonN">No</button>
   </div>
 
 
