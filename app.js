@@ -43,6 +43,10 @@ function selectBlueTeam(){
   window.alert(isRedTeam);
 }
 
+function updateScore() {
+
+}
+
 // default
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
