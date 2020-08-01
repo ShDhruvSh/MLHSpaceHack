@@ -8,14 +8,19 @@
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
     <link rel="stylesheet" href="style.css">
-
+    <script src="https://js.radar.io/v3/radar.min.js"></script>
+    <script src="app.js">
+    </script>
+    <script defer
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_fDd-adp11MjYr4FjHMdEpkpCq9AGk9w&callback=initMap">
+    </script>
 
   </head>
 
 
   <body id = "space">
 
-    <button onClick="updateScore()" id="scoreTracker">Score: </button>
+    <input type="text" id="scoreTracker"/>
 
     <div id="title">
       <h1>Spacing Out!</h1>
@@ -35,54 +40,15 @@
 
   </div>
 
-  <div>
-    <p>Are you wearing a mask? Please answer honestly for the safety of you and everyone around you.</p>
+  <div id="question">
+    <p>Are you wearing a mask? Please answer honestly
+    <br> for the safety of you and everyone around you.</p>
     <button onClick="mask" id = "maskButtonY">Yes</button>
     <button onClick="mask" id = "maskButtonN">No</button>
   </div>
 
 
     </body>
-
-
-
-
-
-
-
-
-    <!-- The core Firebase JS SDK is always required and must be listed first -->
-    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
-
-    <!-- TODO: Add SDKs for Firebase products that you want to use
-         https://firebase.google.com/docs/web/setup#available-libraries -->
-    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-analytics.js"></script>
-
-    <script>
-      // Your web app's Firebase configuration
-      var firebaseConfig = {
-        apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
-        authDomain: "space-65ce3.firebaseapp.com",
-        databaseURL: "https://space-65ce3.firebaseio.com",
-        projectId: "space-65ce3",
-        storageBucket: "space-65ce3.appspot.com",
-        messagingSenderId: "62019877260",
-        appId: "1:62019877260:web:115d17a6348d265027bea9",
-        measurementId: "G-C9NHYCEZCR"
-      };
-      // Initialize Firebase
-      firebase.initializeApp(firebaseConfig);
-      firebase.analytics();
-    </script>
-    <script src="https://js.radar.io/v3/radar.min.js"></script>
-    <script src="app.js">
-    </script>
-    <script defer
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_fDd-adp11MjYr4FjHMdEpkpCq9AGk9w&callback=initMap">
-    </script>
-    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
-  </body>
 
 
 </html>
