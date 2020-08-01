@@ -185,7 +185,7 @@ function updateScore() {
     //the user is at home
   }
   document.getElementById("scoreTracker").innerHTML = "Score: " + score;
-  document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec\n" + numNewSeconds + " everything in seconds lmao";
+  document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec";
 }
 
 
@@ -369,10 +369,10 @@ function getLocation(map, infoWindow){
                   // Call function get and set location
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
-          lat:39.709451,
-          lng: -105.084629
-          //lat:position.coords.latitude,
-          //lng: position.coords.longitude
+          //lat:39.709451,
+          //lng: -105.084629
+          lat:position.coords.latitude,
+          lng: position.coords.longitude
         };
 
         prevLat = position.coords.latitude;
@@ -380,7 +380,6 @@ function getLocation(map, infoWindow){
         currLat = position.coords.latitude;
         currLong = position.coords.longitude;
         distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
-        startScore();
 
         infoWindow.setPosition(pos);
         infoWindow.setContent(region);
@@ -400,10 +399,10 @@ function getLocation(map, infoWindow){
 
       marker2 = new google.maps.Marker({position: pos, map: map, icon: astronaut});
 
-      if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+      if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)" || document.getElementById("main_title").innerHTML != "Spacing Out!"){
         //the user is at the store
       } else {
-        //the user is at home
+        document.getElementById("question").style.display = "none";
       }
 
 
@@ -427,6 +426,7 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     var title = "Spacing Out! (Earth)";
+    startScore();
     for(var i = 0; i < results.length; i++){
       if(createMarker(results[i]) < .02){
         title = "Spacing Out! (USS " + results[i].name + ")";
