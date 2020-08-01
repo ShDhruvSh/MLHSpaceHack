@@ -1,5 +1,26 @@
 var map, infoWindow;
 var region = "Region 0";
+var isRedTeam;
+var isWearingMask;
+var prevLat;
+var prevLong;
+var currLat;
+var currLong;
+var distanceTravelled;
+var score;
+const firebase = require("firebase");
+// Required for side-effects
+require("firebase/firestore");
+
+
+// Initialize Cloud Firestore through Firebase
+firebase.initializeApp({
+  apiKey: 'AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY',
+  authDomain: 'space-65ce3.firebaseapp.com',
+  projectId: 'space-65ce3'
+});
+
+var db = firebase.firestore();
 
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
@@ -11,7 +32,7 @@ function calcDistanceTravelled(lat1, lat2, long1, long2) {
 
   a = 3963.0 * Math.acos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLong));
 
-  window.alert("You have travelled " + a + " miles!");
+  //window.alert("You have travelled " + a + " miles!");
 }
 
 function updatePrevCoords(){
@@ -29,8 +50,21 @@ function selectBlueTeam(){
   window.alert(isRedTeam);
 }
 
-function updateScore() {
+function selectMask(){
+  isWearingMask = true;
+  window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!")
+}
 
+function notWearingMask(){
+  isWearingMask = false;
+  document.body.style.backgroundImage = "url('red.png')";
+  document.body.style.backgroundColor = "red";
+  document.body.style.backgroundSize = "200% 200%";
+  window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+}
+
+function updateScore() {
+  document.getElementById("scoreTracker").innerHTML = "Score: " + score;
 }
 
 // default
@@ -51,12 +85,13 @@ function initMap() {
         lng: position.coords.longitude
       };
 
-      var prevLat = position.coords.latitude;
-      var prevLong = position.coords.longitude;
-      var currLat = position.coords.latitude;
-      var currLong = position.coords.longitude;
-      var distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
-      var score = score + (distanceTravelled * 100);
+      prevLat = position.coords.latitude;
+      prevLong = position.coords.longitude;
+      currLat = position.coords.latitude;
+      currLong = position.coords.longitude;
+      distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
+      score = score + distanceTravelled * 100;
+      updateScore();
 
       infoWindow.setPosition(pos);
       infoWindow.setContent(region);
