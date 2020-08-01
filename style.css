@@ -24,9 +24,21 @@
   text-align: center;
 }
 #question {
-  margin-left: 8px;
+  margin: auto;
+  text-align: center;
   position: relative;
-  bottom: 625px;
+  width: 25%;
+  padding-bottom: 50px;
+  box-shadow: 0px 0px 7px #FFF;
+  background-color: #243d4c;
+  padding: 0% 0.5% 0.5% 0.5%;
+}
+
+#scoreBox{
+  padding-left: 20px;
+  width: 10%;
+  box-shadow: 0px 0px 7px #FFF;
+  background-color: #243d4c;
 }
 html {
   height: 100%;
@@ -43,6 +55,9 @@ body {
   background-repeat: no-repeat, repeat;
   background-color: #cccccc;
   background-size: auto;
+  font-family: video,serif !important;
+  font-weight: 400;
+  font-style: normal;
 }
 
 
@@ -87,4 +102,9 @@ body {
   border-radius: 2px;
   transition-duration: 0.4s;
 }
+
+
+a{
+  text-decoration: none !important;
+  color: #FFF !important;
 }

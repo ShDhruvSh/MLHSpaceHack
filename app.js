@@ -85,7 +85,10 @@ function updateNo(){
 
 function selectMask(){
   isWearingMask = true;
-  updateYes();
+  document.body.style.background = "none";
+  document.body.style.backgroundImage = "url('Background.jpg')"
+  document.body.style.backgroundSize = "auto"
+  //updateYes();
   window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!")
 }
 
@@ -94,7 +97,7 @@ function notWearingMask(){
   document.body.style.background = "none";
   document.body.style.backgroundColor = "rgba(255,0,0,0.9)";
   document.body.style.backgroundSize = "200% 200%";
-  updateNo();
+  //updateNo();
   window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
 }
 
