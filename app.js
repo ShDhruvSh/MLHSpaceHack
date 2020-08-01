@@ -9,6 +9,10 @@ var currLat;
 var currLong;
 var distanceTravelled;
 var score;
+var now = new Date();
+var hour = now.getHours();
+var minute = now.getMinutes();
+var second = now.getSeconds();
 var firebaseConfig = {
   apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
   authDomain: "space-65ce3.firebaseapp.com",
@@ -88,7 +92,7 @@ function selectMask(){
   document.body.style.background = "none";
   document.body.style.backgroundImage = "url('Background.jpg')"
   document.body.style.backgroundSize = "auto"
-  //updateYes();
+  updateYes();
   window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!")
 }
 
@@ -97,7 +101,7 @@ function notWearingMask(){
   document.body.style.background = "none";
   document.body.style.backgroundColor = "rgba(255,0,0,0.9)";
   document.body.style.backgroundSize = "200% 200%";
-  //updateNo();
+  updateNo();
   window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
 }
 
