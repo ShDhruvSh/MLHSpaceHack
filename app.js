@@ -31,7 +31,6 @@ var db = firebase.firestore();
 
 const docRef = db.doc("samples/users");
 
-
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
   lat2 = lat2/(180/Math.PI);
@@ -337,8 +336,6 @@ function getLocation(map, infoWindow){
       } else {
         //the user is at home
       }
-
-      console.log(pos);
 
 
       }, function() {
