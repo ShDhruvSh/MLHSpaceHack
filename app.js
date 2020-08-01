@@ -29,7 +29,10 @@ var firebaseConfig = {
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
-const docRef = db.doc("samples/users");
+const docRefR = db.doc("teams/red");
+const docRefB = db.doc("teams/blue");
+const increment = firebase.firestore.FieldValue.increment(1);
+
 
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
@@ -59,13 +62,14 @@ function selectBlueTeam(){
   window.alert(isRedTeam);
 }
 
-function updateYes(){
+function updateYesR(){
 
-  docRef.set({
-    hotDogStatus: 0
+  docRefR.update({
+    Yes: increment,
+    Total: increment
   })
-  .then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
+  .then(function(docRefR) {
+    console.log("Document written with ID: ", docRefR.id);
   })
   .catch(function(error) {
     console.error("Error adding document: ", error);
@@ -73,13 +77,43 @@ function updateYes(){
 }
 
 
-function updateNo(){
+function updateNoR(){
 
-  docRef.set({
-    hotDogStatus: 0
+  docRefR.update({
+    No: increment,
+    Total: increment
   })
-  .then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
+  .then(function(docRefR) {
+    console.log("Document written with ID: ", docRefR.id);
+  })
+  .catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+}
+
+function updateYesB(){
+
+  docRefB.update({
+    No: increment,
+    Total: increment
+  })
+  .then(function(docRefB) {
+    console.log("Document written with ID: ", docRefB.id);
+  })
+  .catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+}
+
+
+function updateNoB(){
+
+  docRefB.update({
+    No: increment,
+    Total: increment
+  })
+  .then(function(docRefB) {
+    console.log("Document written with ID: ", docRefB.id);
   })
   .catch(function(error) {
     console.error("Error adding document: ", error);
@@ -91,7 +125,14 @@ function selectMask(){
   document.body.style.background = "none";
   document.body.style.backgroundImage = "url('Background.jpg')"
   document.body.style.backgroundSize = "auto"
-  updateYes();
+  if(isRedTeam)
+  {
+    updateYesR();
+  }
+  else if(!isRedTEam)
+  {
+    updateYesB();
+  }
   window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!");
   document.getElementById("question").style.display = "none";
 
@@ -102,7 +143,14 @@ function notWearingMask(){
   document.body.style.background = "none";
   document.body.style.backgroundColor = "rgba(255,0,0,0.9)";
   document.body.style.backgroundSize = "200% 200%";
-  updateNo();
+  if(isRedTeam)
+  {
+    updateNoR();
+  }
+  else if(!isRedTEam)
+  {
+    updateNoB();
+  }
   window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
   document.getElementById("question").style.display = "none";
 }
