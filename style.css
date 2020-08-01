@@ -36,6 +36,7 @@ html, body {
   display: inline-block;
   font-size: 16px;
   border-radius: 2px;
+  transition-duration: 0.4s;
 }
 
 #distanceButton {
@@ -48,4 +49,5 @@ html, body {
   display: inline-block;
   font-size: 16px;
   border-radius: 2px;
+  transition-duration: 0.4s;
 }
