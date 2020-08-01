@@ -1,20 +1,6 @@
 var map, infoWindow;
 var region = "Region 0";
 
-//Radar work
-Radar.initialize("prj_test_pk_c3a8e42cc392005ceac13fb535867c684ee1b208");
-
-Radar.setUserId(Date.now);
-
-
-Radar.trackOnce(function(err, result) {
-  if (!err) {
-    document.getElementById("info").innerHTML = "yeet";
-  } else {
-    console.log(err);
-  }
-});
-
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
   lat2 = lat2/(180/Math.PI);
