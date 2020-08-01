@@ -89,7 +89,9 @@ function selectMask(){
   document.body.style.backgroundImage = "url('Background.jpg')"
   document.body.style.backgroundSize = "auto"
   //updateYes();
-  window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!")
+  window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!");
+  document.getElementById("question").style.display = "none";
+
 }
 
 function notWearingMask(){
@@ -99,6 +101,7 @@ function notWearingMask(){
   document.body.style.backgroundSize = "200% 200%";
   //updateNo();
   window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+  document.getElementById("question").style.display = "none";
 }
 
 function updateScore() {

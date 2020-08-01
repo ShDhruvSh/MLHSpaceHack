@@ -103,7 +103,9 @@ body {
   transition-duration: 0.4s;
 }
 
-
+#credits{
+  padding-top: 100px;
+}
 a{
   text-decoration: none !important;
   color: #FFF !important;
