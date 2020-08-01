@@ -8,11 +8,16 @@ var prevLong;
 var currLat;
 var currLong;
 var distanceTravelled;
-var score;
-var now;
-var startHour;
-var startMinute;
-var startSecond;
+var score = 0;
+var now = new Date();
+var startHour = now.getHours();
+var startMinute = now.getMinutes();
+var startSecond = now.getSeconds();
+var numSeconds = startHour*360 + startMinute*60 + startSecond
+var newNow;
+var newHour;
+var newMinute;
+var newSecond;
 var firebaseConfig = {
   apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
   authDomain: "space-65ce3.firebaseapp.com",
@@ -24,12 +29,17 @@ var firebaseConfig = {
   measurementId: "G-C9NHYCEZCR"
 };
 
+setInterval(updateScore, 1000);
+
 
 // Initialize Cloud Firestore through Firebase
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
-const docRef = db.doc("samples/users");
+const docRefR = db.doc("teams/red");
+const docRefB = db.doc("teams/blue");
+const increment = firebase.firestore.FieldValue.increment(1);
+
 
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
@@ -59,13 +69,14 @@ function selectBlueTeam(){
   window.alert(isRedTeam);
 }
 
-function updateYes(){
+function updateYesR(){
 
-  docRef.set({
-    hotDogStatus: 0
+  docRefR.set({
+    yes: 1,
+    total: 1
   })
-  .then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
+  .then(function(docRefR) {
+    console.log("Document written with ID: ", docRefR.id);
   })
   .catch(function(error) {
     console.error("Error adding document: ", error);
@@ -73,13 +84,43 @@ function updateYes(){
 }
 
 
-function updateNo(){
+function updateNoR(){
 
-  docRef.set({
-    hotDogStatus: 0
+  docRefR.update({
+    no: increment,
+    total: increment
   })
-  .then(function(docRef) {
-    console.log("Document written with ID: ", docRef.id);
+  .then(function(docRefR) {
+    console.log("Document written with ID: ", docRefR.id);
+  })
+  .catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+}
+
+function updateYesB(){
+
+  docRefB.update({
+    yes: increment,
+    total: increment
+  })
+  .then(function(docRefB) {
+    console.log("Document written with ID: ", docRefB.id);
+  })
+  .catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+}
+
+
+function updateNoB(){
+
+  docRefB.update({
+    no: increment,
+    total: increment
+  })
+  .then(function(docRefB) {
+    console.log("Document written with ID: ", docRefB.id);
   })
   .catch(function(error) {
     console.error("Error adding document: ", error);
@@ -91,7 +132,14 @@ function selectMask(){
   document.body.style.background = "none";
   document.body.style.backgroundImage = "url('Background.jpg')"
   document.body.style.backgroundSize = "auto"
-  updateYes();
+  if(isRedTeam)
+  {
+    updateYesR();
+  }
+  else if(!isRedTeam)
+  {
+    updateYesB();
+  }
   window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!");
   document.getElementById("question").style.display = "none";
 
@@ -102,20 +150,42 @@ function notWearingMask(){
   document.body.style.background = "none";
   document.body.style.backgroundColor = "rgba(255,0,0,0.9)";
   document.body.style.backgroundSize = "200% 200%";
-  updateNo();
+  if(isRedTeam)
+  {
+    updateNoR();
+  }
+  else if(!isRedTeam)
+  {
+    updateNoB();
+  }
   window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
   document.getElementById("question").style.display = "none";
 }
-
+function startScore(){
+  if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+    score = score + 1000;
+  } else {
+    //the user is at home
+  }
+}
 function updateScore() {
-  now = new Date();
-  startHour = now.getHours();
-  startMinute = now.getMinutes();
-  startSecond = now.getSeconds();
-  numSeconds = startHour*360 + startMinute*60 + startSecond
-  score = 1000;
-
-  document.getElementById("scoreTracker").innerHTML = "Time: " + startHour + " ";
+  newNow = new Date();
+  newHour = newNow.getHours();
+  newMinute = newNow.getMinutes();
+  newSecond = newNow.getSeconds();
+  numNewSeconds = newHour*360 + newMinute*60 + newSecond;
+  var secondsDiff = 0;
+  if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+    secondsDiff = numNewSeconds - numSeconds;
+    if (secondsDiff % 60 == 0 && secondsDiff != 0){
+      score = score - 10;
+    }
+  }
+  else {
+    //the user is at home
+  }
+  document.getElementById("scoreTracker").innerHTML = "Score: " + score;
+  document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec";
 }
 
 
@@ -299,10 +369,10 @@ function getLocation(map, infoWindow){
                   // Call function get and set location
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
-          //lat:39.709451,
-          //lng: -105.084629
-          lat:position.coords.latitude,
-          lng: position.coords.longitude
+          lat:39.709451,
+          lng: -105.084629
+          //lat:position.coords.latitude,
+          //lng: position.coords.longitude
         };
 
         prevLat = position.coords.latitude;
@@ -310,8 +380,7 @@ function getLocation(map, infoWindow){
         currLat = position.coords.latitude;
         currLong = position.coords.longitude;
         distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
-        score = score + distanceTravelled * 100;
-        updateScore();
+        startScore();
 
         infoWindow.setPosition(pos);
         infoWindow.setContent(region);
