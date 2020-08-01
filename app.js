@@ -254,10 +254,10 @@ function initMap() {
   if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(function(position) {
       var pos = {
-        lat:39.709451,
-        lng: -105.084629
-        //lat:position.coords.latitude,
-        //lng: position.coords.longitude
+        //lat:39.709451,
+        //lng: -105.084629
+        lat:position.coords.latitude,
+        lng: position.coords.longitude
       };
 
       prevLat = position.coords.latitude;
@@ -317,7 +317,7 @@ function callback(results, status) {
     var title = "Spacing Out! (Earth)";
     for(var i = 0; i < results.length; i++){
       if(createMarker(results[i]) < .02){
-        title = "Spacing Out! USS " + results[i].name;
+        title = "Spacing Out! (USS " + results[i].name + ")";
       }
     }
 
