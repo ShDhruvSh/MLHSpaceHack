@@ -286,59 +286,65 @@ function initMap() {
           ]
   });
   infoWindow = new google.maps.InfoWindow;
+getLocation(map,infoWindow);
 
-  // get location
-  if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      var pos = {
-        //lat:39.709451,
-        //lng: -105.084629
-        lat:position.coords.latitude,
-        lng: position.coords.longitude
+}
+
+function getLocation(map, infoWindow){
+
+    // get location
+    if (navigator.geolocation) {
+                  // Call function get and set location
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var pos = {
+          //lat:39.709451,
+          //lng: -105.084629
+          lat:position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        prevLat = position.coords.latitude;
+        prevLong = position.coords.longitude;
+        currLat = position.coords.latitude;
+        currLong = position.coords.longitude;
+        distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
+        score = score + distanceTravelled * 100;
+        updateScore();
+
+        infoWindow.setPosition(pos);
+        infoWindow.setContent(region);
+        infoWindow.open(map);
+        map.setCenter(pos);
+
+        var request = {
+        location: pos,
+        radius: '10',
+        query: 'store'
       };
 
-      prevLat = position.coords.latitude;
-      prevLong = position.coords.longitude;
-      currLat = position.coords.latitude;
-      currLong = position.coords.longitude;
-      distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
-      score = score + distanceTravelled * 100;
-      updateScore();
+      service = new google.maps.places.PlacesService(map);
+      service.textSearch(request, callback);
 
-      infoWindow.setPosition(pos);
-      infoWindow.setContent(region);
-      infoWindow.open(map);
-      map.setCenter(pos);
+      var astronaut = "https://img.icons8.com/officel/80/000000/astronaut.png";
 
-      var request = {
-      location: pos,
-      radius: '10',
-      query: 'store'
-    };
+      marker2 = new google.maps.Marker({position: pos, map: map, icon: astronaut});
 
-    service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, callback);
+      if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+        //the user is at the store
+      } else {
+        //the user is at home
+      }
 
-    var astronaut = "https://img.icons8.com/officel/80/000000/astronaut.png";
+      console.log(pos);
 
-    marker2 = new google.maps.Marker({position: pos, map: map, icon: astronaut});
 
-    if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
-      //the user is at the store
+      }, function() {
+        handleLocationError(true, infoWindow, map.getCenter());
+      });
     } else {
-      //the user is at home
+      // Browser doesn't support Geolocation
+      handleLocationError(false, infoWindow, map.getCenter());
     }
-
-
-    }, function() {
-      handleLocationError(true, infoWindow, map.getCenter());
-    });
-  } else {
-    // Browser doesn't support Geolocation
-    handleLocationError(false, infoWindow, map.getCenter());
-  }
-
-
 }
 
 function handleLocationError(browserHasGeolocation, infoWindow, pos) {
