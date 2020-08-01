@@ -1,5 +1,7 @@
 var map, infoWindow;
 var region = "Region 0";
+var isRedTeam;
+var isWearingMask;
 var prevLat;
 var prevLong;
 var currLat;
@@ -17,7 +19,7 @@ function calcDistanceTravelled(lat1, lat2, long1, long2) {
 
   a = 3963.0 * Math.acos((Math.sin(lat1) * Math.sin(lat2)) + Math.cos(lat1) * Math.cos(lat2) * Math.cos(dLong));
 
-  window.alert("You have travelled " + a + " miles!");
+  //window.alert("You have travelled " + a + " miles!");
 }
 
 function updatePrevCoords(){
@@ -35,9 +37,21 @@ function selectBlueTeam(){
   window.alert(isRedTeam);
 }
 
+function selectMask(){
+  isWearingMask = true;
+  window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!")
+}
+
+function notWearingMask(){
+  isWearingMask = false;
+  document.body.style.backgroundImage = "url('red.png')";
+  document.body.style.backgroundColor = "red";
+  document.body.style.backgroundSize = "200% 200%";
+  window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+}
+
 function updateScore() {
-  var txtOutput = document.getElementById("scoreTracker");
-  txtOutput = "Score: " + score;
+  document.getElementById("scoreTracker").innerHTML = "Score: " + score;
 }
 
 // default
@@ -63,7 +77,7 @@ function initMap() {
       currLat = position.coords.latitude;
       currLong = position.coords.longitude;
       distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
-      score = 100;
+      score = score + distanceTravelled * 100;
       updateScore();
 
       infoWindow.setPosition(pos);

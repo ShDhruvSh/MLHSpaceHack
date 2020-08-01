@@ -20,14 +20,14 @@
 
   <body id = "space">
 
-    <button onClick="updateScore()" id="scoreTracker">Score: </button>
+    <p id="scoreTracker">Score: </p>
 
     <div id="title">
       <h1>Spacing Out!</h1>
     </div>
 
     <div id="description">
-      <p>Walk to different locations to earn points, but make sure to socially
+      <p>Travel to different locations to get points, but make sure to socially
         distance and wear a mask!</p>
     </div>
 
@@ -38,16 +38,14 @@
 
     <div id="map"></div>
 
-  </div>
-
-  <div>
-    <p>Are you wearing a mask? Please answer honestly for the safety of you and everyone around you.</p>
-    <button onClick="mask" id = "maskButtonY">Yes</button>
-    <button onClick="mask" id = "maskButtonN">No</button>
-  </div>
+    <div>
+      <p>Are you wearing a mask? Please answer honestly for the safety of you and everyone around you.</p>
+      <button onClick="selectMask()" id = "maskButtonY">Yes</button>
+      <button onClick="notWearingMask()" id = "maskButtonN">No</button>
+    </div>
 
 
-    </body>
+  </body>
 
 
 </html>
