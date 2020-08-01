@@ -1,6 +1,7 @@
 var map, infoWindow;
-var region = "Region 0";
-var nearby = [];
+var region = "Astronaut (You)";
+var all_markers = [];
+var marker2;
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
   lat2 = lat2/(180/Math.PI);
@@ -33,11 +34,170 @@ function selectBlueTeam(){
 function initMap() {
   map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: 39.673370, lng: 255.036621},
-    zoom: 600
+    zoom: 600,
+    styles: [
+            {
+              elementType: "geometry",
+              stylers: [
+                {
+                  color: "#242f3e"
+                }
+              ]
+            },
+            {
+              elementType: "labels.text.stroke",
+              stylers: [
+                {
+                  color: "#242f3e"
+                }
+              ]
+            },
+            {
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#746855"
+                }
+              ]
+            },
+            {
+              featureType: "administrative.locality",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#d59563"
+                }
+              ]
+            },
+            {
+              featureType: "poi",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#d59563"
+                }
+              ]
+            },
+            {
+              featureType: "poi.park",
+              elementType: "geometry",
+              stylers: [
+                {
+                  color: "#263c3f"
+                }
+              ]
+            },
+            {
+              featureType: "poi.park",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#6b9a76"
+                }
+              ]
+            },
+            {
+              featureType: "road",
+              elementType: "geometry",
+              stylers: [
+                {
+                  color: "#38414e"
+                }
+              ]
+            },
+            {
+              featureType: "road",
+              elementType: "geometry.stroke",
+              stylers: [
+                {
+                  color: "#212a37"
+                }
+              ]
+            },
+            {
+              featureType: "road",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#9ca5b3"
+                }
+              ]
+            },
+            {
+              featureType: "road.highway",
+              elementType: "geometry",
+              stylers: [
+                {
+                  color: "#746855"
+                }
+              ]
+            },
+            {
+              featureType: "road.highway",
+              elementType: "geometry.stroke",
+              stylers: [
+                {
+                  color: "#1f2835"
+                }
+              ]
+            },
+            {
+              featureType: "road.highway",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#f3d19c"
+                }
+              ]
+            },
+            {
+              featureType: "transit",
+              elementType: "geometry",
+              stylers: [
+                {
+                  color: "#2f3948"
+                }
+              ]
+            },
+            {
+              featureType: "transit.station",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#d59563"
+                }
+              ]
+            },
+            {
+              featureType: "water",
+              elementType: "geometry",
+              stylers: [
+                {
+                  color: "#17263c"
+                }
+              ]
+            },
+            {
+              featureType: "water",
+              elementType: "labels.text.fill",
+              stylers: [
+                {
+                  color: "#515c6d"
+                }
+              ]
+            },
+            {
+              featureType: "water",
+              elementType: "labels.text.stroke",
+              stylers: [
+                {
+                  color: "#17263c"
+                }
+              ]
+            }
+          ]
   });
   infoWindow = new google.maps.InfoWindow;
-
-
 
   // get location
   if (navigator.geolocation) {
@@ -45,10 +205,12 @@ function initMap() {
       var pos = {
         lat:39.709451,
         lng: -105.084629
+        //lat:position.coords.latitude,
+        //lng: position.coords.longitude
       };
 
       var prevLat = position.coords.latitude;
-      var prevLong = position.coords.longitude;
+      var prevLong = position.coords.latitude;
       var currLat = position.coords.latitude;
       var currLong = position.coords.longitude;
       var distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
@@ -66,22 +228,16 @@ function initMap() {
     };
 
     service = new google.maps.places.PlacesService(map);
-    service.textSearch(request, callback, pos);
-    var service = new google.maps.DistanceMatrixService();
-    for(var i = 0; i < nearby.length; i++){
-      console.log(nearby[i]);
-    service.getDistanceMatrix(
-      {
-        origins: [pos, nearby[i]],
-        destinations: ["curr", "store"],
-        travelMode: 'DRIVING',
-        transitOptions: TransitOptions,
-        drivingOptions: DrivingOptions,
-        unitSystem: UnitSystem,
-        avoidHighways: Boolean,
-        avoidTolls: Boolean,
-      }, callback);
+    service.textSearch(request, callback);
 
+    var astronaut = "https://img.icons8.com/officel/80/000000/astronaut.png";
+
+    marker2 = new google.maps.Marker({position: pos, map: map, icon: astronaut});
+
+    if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+      //the user is at the store
+    } else {
+      //the user is at home
     }
 
 
@@ -106,27 +262,37 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
-    for (var i = 0; i < results.length; i++) {
-      nearby[i] = results[i];
-    }
-  }
-}
-
-function callback_distance(response, status) {
-  if (status == 'OK') {
-    var origins = response.originAddresses;
-    var destinations = response.destinationAddresses;
-
-    for (var i = 0; i < origins.length; i++) {
-      var results = response.rows[i].elements;
-      for (var j = 0; j < results.length; j++) {
-        var element = results[j];
-        var distance = element.distance.text;
-        console.log(distance);
-        var duration = element.duration.text;
-        var from = origins[i];
-        var to = destinations[j];
+    var title = "Spacing Out! (Earth)";
+    for(var i = 0; i < results.length; i++){
+      if(createMarker(results[i]) < .02){
+        title = "Spacing Out! USS " + results[i].name;
       }
     }
+
+    document.getElementById("main_title").innerHTML = title;
+
   }
 }
+
+function createMarker(place) {
+  var shuttle = "https://img.icons8.com/color/96/000000/launched-rocket.png";
+  const marker = new google.maps.Marker({
+    map,
+    position: place.geometry.location,
+    icon: shuttle,
+    title: place.name
+  });
+
+  return haversine_distance(marker, marker2);
+}
+
+function haversine_distance(mk1, mk2) {
+      var R = 3958.8; // Radius of the Earth in miles
+      var rlat1 = mk1.position.lat() * (Math.PI/180); // Convert degrees to radians
+      var rlat2 = mk2.position.lat() * (Math.PI/180); // Convert degrees to radians
+      var difflat = rlat2-rlat1; // Radian difference (latitudes)
+      var difflon = (mk2.position.lng()-mk1.position.lng()) * (Math.PI/180); // Radian difference (longitudes)
+
+      var d = 2 * R * Math.asin(Math.sqrt(Math.sin(difflat/2)*Math.sin(difflat/2)+Math.cos(rlat1)*Math.cos(rlat2)*Math.sin(difflon/2)*Math.sin(difflon/2)));
+      return d;
+    }
