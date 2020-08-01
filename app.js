@@ -8,11 +8,16 @@ var prevLong;
 var currLat;
 var currLong;
 var distanceTravelled;
-var score;
-var now;
-var startHour;
-var startMinute;
-var startSecond;
+var score = 0;
+var now = new Date();
+var startHour = now.getHours();
+var startMinute = now.getMinutes();
+var startSecond = now.getSeconds();
+var numSeconds = startHour*360 + startMinute*60 + startSecond
+var newNow;
+var newHour;
+var newMinute;
+var newSecond;
 var firebaseConfig = {
   apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
   authDomain: "space-65ce3.firebaseapp.com",
@@ -23,6 +28,8 @@ var firebaseConfig = {
   appId: "1:62019877260:web:115d17a6348d265027bea9",
   measurementId: "G-C9NHYCEZCR"
 };
+
+setInterval(updateScore, 1000);
 
 
 // Initialize Cloud Firestore through Firebase
@@ -154,16 +161,31 @@ function notWearingMask(){
   window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
   document.getElementById("question").style.display = "none";
 }
-
+function startScore(){
+  if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+    score = score + 1000;
+  } else {
+    //the user is at home
+  }
+}
 function updateScore() {
-  now = new Date();
-  startHour = now.getHours();
-  startMinute = now.getMinutes();
-  startSecond = now.getSeconds();
-  numSeconds = startHour*360 + startMinute*60 + startSecond
-  score = 1000;
-
-  document.getElementById("scoreTracker").innerHTML = "Time: " + startHour + " ";
+  newNow = new Date();
+  newHour = newNow.getHours();
+  newMinute = newNow.getMinutes();
+  newSecond = newNow.getSeconds();
+  numNewSeconds = newHour*360 + newMinute*60 + newSecond;
+  var secondsDiff = 0;
+  if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+    secondsDiff = numNewSeconds - numSeconds;
+    if (secondsDiff % 60 == 0 && secondsDiff != 0){
+      score = score - 10;
+    }
+  }
+  else {
+    //the user is at home
+  }
+  document.getElementById("scoreTracker").innerHTML = "Score: " + score;
+  document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec\n" + numNewSeconds + " everything in seconds lmao";
 }
 
 
@@ -347,10 +369,10 @@ function getLocation(map, infoWindow){
                   // Call function get and set location
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
-          //lat:39.709451,
-          //lng: -105.084629
-          lat:position.coords.latitude,
-          lng: position.coords.longitude
+          lat:39.709451,
+          lng: -105.084629
+          //lat:position.coords.latitude,
+          //lng: position.coords.longitude
         };
 
         prevLat = position.coords.latitude;
@@ -358,8 +380,7 @@ function getLocation(map, infoWindow){
         currLat = position.coords.latitude;
         currLong = position.coords.longitude;
         distanceTravelled = calcDistanceTravelled(prevLat, currLat, prevLong, currLong);
-        score = score + distanceTravelled * 100;
-        updateScore();
+        startScore();
 
         infoWindow.setPosition(pos);
         infoWindow.setContent(region);
