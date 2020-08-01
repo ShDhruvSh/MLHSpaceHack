@@ -9,6 +9,10 @@ var currLat;
 var currLong;
 var distanceTravelled;
 var score;
+var now;
+var startHour;
+var startMinute;
+var startSecond;
 var firebaseConfig = {
   apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
   authDomain: "space-65ce3.firebaseapp.com",
@@ -88,7 +92,7 @@ function selectMask(){
   document.body.style.background = "none";
   document.body.style.backgroundImage = "url('Background.jpg')"
   document.body.style.backgroundSize = "auto"
-  //updateYes();
+  updateYes();
   window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!");
   document.getElementById("question").style.display = "none";
 
@@ -99,13 +103,20 @@ function notWearingMask(){
   document.body.style.background = "none";
   document.body.style.backgroundColor = "rgba(255,0,0,0.9)";
   document.body.style.backgroundSize = "200% 200%";
-  //updateNo();
+  updateNo();
   window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
   document.getElementById("question").style.display = "none";
 }
 
 function updateScore() {
-  document.getElementById("scoreTracker").innerHTML = "Score: " + score;
+  now = new Date();
+  startHour = now.getHours();
+  startMinute = now.getMinutes();
+  startSecond = now.getSeconds();
+  numSeconds = startHour*360 + startMinute*60 + startSecond
+  score = 1000;
+
+  document.getElementById("scoreTracker").innerHTML = "Time: " + startHour + " ";
 }
 
 
