@@ -97,7 +97,9 @@ body {
   font-style: normal;
 }
 
-
+#blank{
+    color:black;
+}
 #maskButtonY {
   background-color: #4CAF50; /* Green */
   border: none;
@@ -168,3 +170,16 @@ a{
   background-color: #ddd;
   color: black;
 }
+
+#paragraph1 {
+  padding-right: 1200px;
+}
+
+#paragraph2 {
+  padding-right: 1200px;
+}
+
+#paragraph3 {
+  padding-right: 1200px;
+}
+
