@@ -39,8 +39,8 @@ setInterval(updateScore, 1000);
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
-const docRefR = db.doc("teams/red");
-const docRefB = db.doc("teams/blue");
+const docRefR = db.doc("samples/red");
+const docRefB = db.doc("samples/blue");
 const increment = firebase.firestore.FieldValue.increment(1);
 
 
@@ -80,9 +80,9 @@ function selectBlueTeam(){
 
 function updateYesR(){
 
-  docRefR.set({
-    yes: 1,
-    total: 1
+  docRefR.update({
+    yes: increment,
+    total: increment
   })
   .then(function(docRefR) {
     console.log("Document written with ID: ", docRefR.id);
@@ -456,6 +456,7 @@ function getLocation(map, infoWindow){
         //the user is at the store
       } else {
         //the user is at home
+
       }
 
 
@@ -479,10 +480,16 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     var title = "Spacing Out! (Earth)";
+    var home = true;
     for(var i = 0; i < results.length; i++){
       if(createMarker(results[i]) < .02){
         title = "Spacing Out! (USS " + results[i].name + ")";
+        home = false;
       }
+    }
+
+    if(home){
+      document.getElementById("question").style.display = "none";
     }
 
     document.getElementById("main_title").innerHTML = title;
