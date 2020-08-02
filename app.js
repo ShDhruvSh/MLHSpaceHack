@@ -18,7 +18,6 @@ var newNow;
 var newHour;
 var newMinute;
 var newSecond;
-var teamFlag = false;
 var firebaseConfig = {
   apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
   authDomain: "space-65ce3.firebaseapp.com",
@@ -37,10 +36,10 @@ setInterval(updateScore, 1000);
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
-const docRefR = db.doc("samples/red");
-const docRefB = db.doc("samples/blue");
+const docRefR = db.doc("teams/red");
+const docRefB = db.doc("teams/blue");
 const increment = firebase.firestore.FieldValue.increment(1);
-//const increment = 69;
+
 
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
@@ -62,23 +61,23 @@ function updatePrevCoords(){
 
 function selectRedTeam(){
   isRedTeam = true;
-  teamFlag = true;
-  window.alert("Welcome to the Red Team, the team of planet Mars!");
-  document.getElementById("teamSelect").style.display = "none";
+    startScore();
+  window.alert(isRedTeam);
+  document.getElementById("teamSelect").style.display = "none"
 }
 
 function selectBlueTeam(){
   isRedTeam = false;
-  teamFlag = true;
-  window.alert("Welcome to the Blue Team, the team of planet Neptune!");
-  document.getElementById("teamSelect").style.display = "none";
+  startScore();
+  window.alert(isRedTeam);
+  document.getElementById("teamSelect").style.display = "none"
 }
 
 function updateYesR(){
 
-  docRefR.update({
-    yes: increment,
-    total: increment
+  docRefR.set({
+    yes: 1,
+    total: 1
   })
   .then(function(docRefR) {
     console.log("Document written with ID: ", docRefR.id);
@@ -133,54 +132,39 @@ function updateNoB(){
 }
 
 function selectMask(){
-  if(teamFlag)
+  isWearingMask = true;
+  document.body.style.background = "none";
+  document.body.style.backgroundImage = "url('Background.jpg')"
+  document.body.style.backgroundSize = "auto"
+  if(isRedTeam)
   {
-    isWearingMask = true;
-    document.body.style.background = "none";
-    document.body.style.backgroundImage = "url('Background.jpg')"
-    document.body.style.backgroundSize = "auto"
-    if(isRedTeam)
-    {
-      updateYesR();
-    }
-    else if(!isRedTeam)
-    {
-      updateYesB();
-    }
-    window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!");
-    document.getElementById("question").style.display = "none";
+    updateYesR();
   }
-  else {
-    {
-      window.alert("Please do your best to find a mask and minimize exposure to others.")
-    }
+  else if(!isRedTeam)
+  {
+    updateYesB();
   }
+  window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!");
+  document.getElementById("question").style.display = "none";
+
 }
 
 function notWearingMask(){
-  if(teamFlag)
+  isWearingMask = false;
+  document.body.style.background = "none";
+  document.body.style.backgroundColor = "rgba(255,0,0,0.9)";
+  document.body.style.backgroundSize = "200% 200%";
+  if(isRedTeam)
   {
-    isWearingMask = false;
-    document.body.style.background = "none";
-    document.body.style.backgroundColor = "rgba(255,0,0,0.9)";
-    document.body.style.backgroundSize = "200% 200%";
-    if(isRedTeam)
-    {
-      updateNoR();
-    }
-    else if(!isRedTeam)
-    {
-      updateNoB();
-    }
-    window.alert("Please do your best to find a mask and minimize exposure to others.")
-    document.getElementById("question").style.display = "none";
-    }
-    else
-    {
-      window.alert("Please select a team before answering this question.")
-    }
+    updateNoR();
   }
-
+  else if(!isRedTeam)
+  {
+    updateNoB();
+  }
+  window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
+  document.getElementById("question").style.display = "none";
+}
 function startScore(){
   if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
     score = score + 1000;
@@ -195,14 +179,21 @@ function updateScore() {
   newSecond = newNow.getSeconds();
   numNewSeconds = newHour*360 + newMinute*60 + newSecond;
   var secondsDiff = 0;
-  if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
-    secondsDiff = numNewSeconds - numSeconds;
-    if (secondsDiff % 60 == 0 && secondsDiff != 0){
-      score = score - 10;
+  if (isRedTeam != null && isWearingMask != null){
+    if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+      secondsDiff = numNewSeconds - numSeconds;
+      if (secondsDiff % 60 == 0 && secondsDiff != 0){
+        if (isWearingMask){
+          score = score - 10;
+        }
+        else{
+          score = score - 100;
+        }
+      }
     }
-  }
-  else {
-    //the user is at home
+    else {
+      //the user is at home
+    }
   }
   document.getElementById("scoreTracker").innerHTML = "Score: " + score;
   document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec";
@@ -389,10 +380,10 @@ function getLocation(map, infoWindow){
                   // Call function get and set location
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
-          //lat: 39.709451,
-          //lng: -105.084629
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+          lat: 39.709451,
+          lng: -105.084629
+          //lat: position.coords.latitude,
+          //lng: position.coords.longitude
         };
 
         prevLat = position.coords.latitude;
