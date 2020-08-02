@@ -221,6 +221,13 @@ function stopScore(){
   if(document.getElementById("main_title").innerHTML == "Spacing Out! (Earth)"){
     isWearingMask = null;
     window.alert("You have collected " + score + " stardust! This will be added to your team's total stardust!")
+    if(isRedTeam)
+    {
+      addRedStardust(score);
+    }
+    else if (!isRedTeam) {
+      addBlueStardust(score);
+    }
   } else {
     //the user is at a store
   }
