@@ -248,6 +248,7 @@ function returnRed(){
     if (doc.exists) {
         var returnPeople = 0;
         returnPeople = doc.data().total;
+        console.log(returnPeople);
         return returnPeople;
     } else {
         // doc.data() will be undefined in this case
