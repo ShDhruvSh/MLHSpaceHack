@@ -206,6 +206,16 @@ function updateScore() {
   newMinute = newNow.getMinutes();
   newSecond = newNow.getSeconds();
   numNewSeconds = newHour*360 + newMinute*60 + newSecond;
+  var teamNotWearingMask = 0;
+  var teamTotal = 0;
+  if (isRedTeam){
+    var teamNotWearingMask = returnRedN();
+    var teamTotal = returnRed();
+  }
+  else{
+    var teamNotWearingMask = returnBlueN();
+    var teamTotal = returnBlue();
+  }
   var secondsDiff = 0;
   if (isRedTeam != null && isWearingMask != null){
     if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
@@ -225,7 +235,7 @@ function updateScore() {
       stopScore();
     }
   }
-  document.getElementById("scoreTracker").innerHTML = "Stardust: " + score;
+  document.getElementById("scoreTracker").innerHTML = "Stardust: " + teamNotWearingMask + " " + teamTotal;
 }
 function updateTime(){
   newNow = new Date();
