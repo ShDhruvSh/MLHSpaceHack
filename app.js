@@ -38,10 +38,9 @@ setInterval(updateScore, 1000);
 firebase.initializeApp(firebaseConfig);
 var db = firebase.firestore();
 
-const docRefR = db.doc("samples/red");
-const docRefB = db.doc("samples/blue");
+const docRefR = db.doc("teams/red");
+const docRefB = db.doc("teams/blue");
 const increment = firebase.firestore.FieldValue.increment(1);
-//const increment = 21;
 
 
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
@@ -66,6 +65,7 @@ function selectRedTeam(){
   isRedTeam = true;
   teamFlag = true;
   window.alert("Welcome to the Red Team, the team of planet Mars!");
+  startScore();
   document.getElementById("teamSelect").style.display = "none";
 }
 
@@ -73,14 +73,15 @@ function selectBlueTeam(){
   isRedTeam = false;
   teamFlag = true;
   window.alert("Welcome to the Blue Team, the team of planet Neptune!");
+  startScore();
   document.getElementById("teamSelect").style.display = "none";
 }
 
 function updateYesR(){
 
-  docRefR.update({
-    yes: increment,
-    total: increment
+  docRefR.set({
+    yes: 1,
+    total: 1
   })
   .then(function(docRefR) {
     console.log("Document written with ID: ", docRefR.id);
@@ -155,9 +156,7 @@ function selectMask(){
     document.getElementById("question").style.display = "none";
   }
   else {
-    {
-      window.alert("Please do your best to find a mask and minimize exposure to others.")
-    }
+    window.alert("Please select a team before answering this question.")
   }
 }
 
@@ -179,12 +178,11 @@ function notWearingMask(){
     window.alert("Please do your best to find a mask and minimize exposure to others.")
     document.getElementById("question").style.display = "none";
     }
-    else
-    {
-      window.alert("Please select a team before answering this question.")
-    }
+  else
+  {
+    window.alert("Please select a team before answering this question.")
   }
-
+}
 function startScore(){
   if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
     score = score + 1000;
@@ -199,14 +197,21 @@ function updateScore() {
   newSecond = newNow.getSeconds();
   numNewSeconds = newHour*360 + newMinute*60 + newSecond;
   var secondsDiff = 0;
-  if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
-    secondsDiff = numNewSeconds - numSeconds;
-    if (secondsDiff % 60 == 0 && secondsDiff != 0){
-      score = score - 10;
+  if (isRedTeam != null && isWearingMask != null){
+    if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+      secondsDiff = numNewSeconds - numSeconds;
+      if (secondsDiff % 60 == 0 && secondsDiff != 0){
+        if (isWearingMask){
+          score = score - 10;
+        }
+        else{
+          score = score - 100;
+        }
+      }
     }
-  }
-  else {
-    //the user is at home
+    else {
+      //the user is at home
+    }
   }
   document.getElementById("scoreTracker").innerHTML = "Score: " + score;
   document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec";
@@ -402,9 +407,9 @@ function getLocation(map, infoWindow){
                   // Call function get and set location
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
-          //lat:39.709451,
+          //lat: 39.709451,
           //lng: -105.084629
-          lat:position.coords.latitude,
+          lat: position.coords.latitude,
           lng: position.coords.longitude
         };
 
@@ -432,10 +437,10 @@ function getLocation(map, infoWindow){
 
       marker2 = new google.maps.Marker({position: pos, map: map, icon: astronaut});
 
-      if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)" || document.getElementById("main_title").innerHTML != "Spacing Out!"){
+      if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
         //the user is at the store
       } else {
-        document.getElementById("question").style.display = "none";
+        //the user is at home
       }
 
 
@@ -459,7 +464,6 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     var title = "Spacing Out! (Earth)";
-    startScore();
     for(var i = 0; i < results.length; i++){
       if(createMarker(results[i]) < .02){
         title = "Spacing Out! (USS " + results[i].name + ")";
