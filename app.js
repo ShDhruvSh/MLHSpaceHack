@@ -200,43 +200,7 @@ function stopScore(){
     //the user is at a store
   }
 }
-function updateScore() {
-  newNow = new Date();
-  newHour = newNow.getHours();
-  newMinute = newNow.getMinutes();
-  newSecond = newNow.getSeconds();
-  numNewSeconds = newHour*360 + newMinute*60 + newSecond;
-  var teamNotWearingMask = 0;
-  var teamTotal = 0;
-  if (isRedTeam){
-    teamNotWearingMask = returnRedN();
-    teamTotal = returnRed();
-  }
-  //else if (!isRedTeam){
-  //  teamNotWearingMask = returnBlueN();
-  //  teamTotal = returnBlue();
-  //}
-  var secondsDiff = 0;
-  if (isRedTeam != null && isWearingMask != null){
-    if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
-      atStore = true;
-      secondsDiff = numNewSeconds - numSeconds;
-      if (secondsDiff % 60 == 0 && secondsDiff != 0){
-        if (isWearingMask){
-          score = score - 10;
-        }
-        else{
-          score = score - 100;
-        }
-      }
-    }
-    else {
-      atStore = false;
-      stopScore();
-    }
-  }
-  document.getElementById("scoreTracker").innerHTML = "Stardust: " + teamNotWearingMask + " " + teamTotal;
-}
+
 function updateTime(){
   newNow = new Date();
   newHour = newNow.getHours();
@@ -283,7 +247,9 @@ function returnRed(){
 
   docRefR.get().then(function(doc) {
     if (doc.exists) {
-        return doc.data().total;
+        var returnPeople = 0;
+        returnPeople = doc.data().total;
+        return returnPeople;
     } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -335,7 +301,43 @@ function returnBlue(){
 });
 }
 
-
+function updateScore() {
+  newNow = new Date();
+  newHour = newNow.getHours();
+  newMinute = newNow.getMinutes();
+  newSecond = newNow.getSeconds();
+  numNewSeconds = newHour*360 + newMinute*60 + newSecond;
+  var teamNotWearingMask = "";
+  var teamTotal = "";
+  if (isRedTeam){
+    teamNotWearingMask = returnRedN();
+    teamTotal = returnRed();
+  }
+  //else if (!isRedTeam){
+  //  teamNotWearingMask = returnBlueN();
+  //  teamTotal = returnBlue();
+  //}
+  var secondsDiff = 0;
+  if (isRedTeam != null && isWearingMask != null){
+    if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+      atStore = true;
+      secondsDiff = numNewSeconds - numSeconds;
+      if (secondsDiff % 60 == 0 && secondsDiff != 0){
+        if (isWearingMask){
+          score = score - 10;
+        }
+        else{
+          score = score - 100;
+        }
+      }
+    }
+    else {
+      atStore = false;
+      stopScore();
+    }
+  }
+  document.getElementById("scoreTracker").innerHTML = "Stardust: " + teamNotWearingMask + " " + teamTotal;
+}
 
 
 // default
@@ -517,10 +519,10 @@ function getLocation(map, infoWindow){
                   // Call function get and set location
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
-          //lat: 39.709451,
-          //lng: -105.084629
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+          lat: 39.709451,
+          lng: -105.084629
+          //lat: position.coords.latitude,
+          //lng: position.coords.longitude
         };
 
         prevLat = position.coords.latitude;
