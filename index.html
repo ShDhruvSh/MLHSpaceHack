@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html>
 
 
@@ -19,65 +19,76 @@
     <title>Spacing Out!</title>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no">
     <meta charset="utf-8">
-    <link rel="shortcut icon" type="image/x-icon" href="favicon.ico?">
 
+<link rel="icon" href="favicon.ico?" type="image/x-icon" />
+    <link rel="apple-touch-icon" sizes="180x180" href="favicon/apple-touch-icon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon/favicon-32x32.png">
+<link rel="icon" type="image/png" sizes="16x16" href="favicon/favicon-16x16.png">
+<link rel="manifest" href="/site.webmanifest">
+<meta name="msapplication-TileColor" content="#2b5797">
+<meta name="theme-color" content="#ffffff">
   </head>
 
 
-  <body id = "space" href="https://space-65ce3.firebaseio.com">
-    <div id="scoreBox">
-      <p id="scoreTracker">Stardust: </p>
-      <p id="timeTracker">Time: </p>
-    </div>
+  <body id="space" href="https://space-65ce3.firebaseio.com">
+      <div id="scoreBox">
+          <p id="scoreTracker">Stardust: </p>
+          <p id="timeTracker">Time: </p>
+      </div>
 
-    <div id="title">
-      <h1 id="main_title">Spacing Out!</h1>
-    </div>
+      <div id="title">
+          <h1 id="main_title">Spacing Out!</h1>
+      </div>
 
-    <div id="description">
-      <p>Walk to different locations to collect stardust, but make sure to wear
-        your spacesuit (mask) and steer clear of other astronauts!</p>
-    </div>
+      <div id="description">
+          <p>
+              Walk to different locations to collect stardust, but make sure to wear
+              your spacesuit (mask) and steer clear of other astronauts!
+          </p>
+      </div>
 
-    <div id="teamSelect">
-      <button onClick="selectRedTeam()" id = "redTeamButton">Join Red Team (Mars)!</button>
-      <button onClick="selectBlueTeam()" id = "blueTeamButton">Join Blue Team (Neptune)!</button>
-    </div>
+      <div id="teamSelect">
+          <button onClick="selectRedTeam()" id="redTeamButton">Join Red Team (Mars)!</button>
+          <button onClick="selectBlueTeam()" id="blueTeamButton">Join Blue Team (Neptune)!</button>
+      </div>
+      <h1 id="blank">.</h1>
+      <div id="map"></div>
 
-    <div id="map"></div>
+      </div>
 
-  </div>
+      <div id="question">
+          <p>Are you wearing a spacesuit (mask)? Please answer honestly your safety and for the astronauts around you.</p>
+          <button onClick="selectMask()" id="maskButtonY">Yes</button>
+          <button onClick="notWearingMask()" id="maskButtonN">No</button>
+      </div>
 
-  <div id="question">
-    <p>Are you wearing a spacesuit (mask)? Please answer honestly your safety and for the astronauts around you.</p>
-    <button onClick="selectMask()" id = "maskButtonY">Yes</button>
-    <button onClick="notWearingMask()" id = "maskButtonN">No</button>
-  </div>
-
-  <div id="icon_credit"><a target="_blank" href="https://icons8.com/icons/set/astronaut">Astronaut icon,</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
- and
-<a target="_blank" href="https://icons8.com/icons/set/astronaut">Launch icon,</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
-and
-<a target="_blank" href="https://www.nasa.gov/audience/forstudents/k-4/stories/nasa-knows/what-is-a-black-hole-k4.html">Background picture,</a> picture by <a target="_blank" href="https://www.nasa.gov/">NASA</a>
-
-
-</div>
-
-
-<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
-
-<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase.js"></script>
-<script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+      <div id="icon_credit">
+          <a target="_blank" href="https://icons8.com/icons/set/astronaut">Astronaut icon,</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+          and
+          <a target="_blank" href="https://icons8.com/icons/set/astronaut">Launch icon,</a> icon by <a target="_blank" href="https://icons8.com">Icons8</a>
+          and
+          <a target="_blank" href="https://www.nasa.gov/audience/forstudents/k-4/stories/nasa-knows/what-is-a-black-hole-k4.html">Background picture,</a> picture by <a target="_blank" href="https://www.nasa.gov/">NASA</a>
 
 
-<script defer
-src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_fDd-adp11MjYr4FjHMdEpkpCq9AGk9w&callback=initMap&libraries=geometry,places">
-</script>
+      </div>
+      <div id="updateMap">
+          <button onclick="initMap()">Refresh Location</button>
+      </div>
 
-<script src="app.js">
-</script>
-    </body>
+      <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-app.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-firestore.js"></script>
 
+      <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase.js"></script>
+      <script src="https://www.gstatic.com/firebasejs/7.17.1/firebase-auth.js"></script>
+
+
+      <script defer
+              src="https://maps.googleapis.com/maps/api/js?key=AIzaSyC_fDd-adp11MjYr4FjHMdEpkpCq9AGk9w&callback=initMap&libraries=geometry,places">
+      </script>
+
+      <script src="app.js">
+      </script>
+  </body>
+    
 
 </html>
