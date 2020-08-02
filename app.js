@@ -426,10 +426,10 @@ function getLocation(map, infoWindow){
                   // Call function get and set location
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
-          //lat: 39.709451,
-          //lng: -105.084629
-          lat: position.coords.latitude,
-          lng: position.coords.longitude
+          lat: 39.709451,
+          lng: -105.084629
+          //lat: position.coords.latitude,
+          //lng: position.coords.longitude
         };
 
         prevLat = position.coords.latitude;
@@ -460,6 +460,7 @@ function getLocation(map, infoWindow){
         //the user is at the store
       } else {
         //the user is at home
+
       }
 
 
@@ -483,10 +484,16 @@ function handleLocationError(browserHasGeolocation, infoWindow, pos) {
 function callback(results, status) {
   if (status == google.maps.places.PlacesServiceStatus.OK) {
     var title = "Spacing Out! (Earth)";
+    var home = true;
     for(var i = 0; i < results.length; i++){
       if(createMarker(results[i]) < .02){
         title = "Spacing Out! (USS " + results[i].name + ")";
+        home = false;
       }
+    }
+
+    if(home){
+      document.getElementById("question").style.display = "none";
     }
 
     document.getElementById("main_title").innerHTML = title;
