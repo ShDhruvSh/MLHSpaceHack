@@ -212,10 +212,10 @@ function updateScore() {
     teamNotWearingMask = returnRedN();
     teamTotal = returnRed();
   }
-  else if (!isRedTeam){
-    teamNotWearingMask = returnBlueN();
-    teamTotal = returnBlue();
-  }
+  //else if (!isRedTeam){
+  //  teamNotWearingMask = returnBlueN();
+  //  teamTotal = returnBlue();
+  //}
   var secondsDiff = 0;
   if (isRedTeam != null && isWearingMask != null){
     if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
