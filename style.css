@@ -80,7 +80,8 @@
 }
 
 #scoreBox{
-  display: grid;
+  display: flex;
+  justify-content: space-between;
 }
 
 
@@ -89,7 +90,7 @@
   width: 10%;
   box-shadow: 0px 0px 7px #FFF;
   background-color: #243d4c;
-  float: right;
+  text-align: right;
 }
 
 html {
