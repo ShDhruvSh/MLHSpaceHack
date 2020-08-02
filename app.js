@@ -209,12 +209,12 @@ function updateScore() {
   var teamNotWearingMask = 0;
   var teamTotal = 0;
   if (isRedTeam){
-    var teamNotWearingMask = returnRedN();
-    var teamTotal = returnRed();
+    teamNotWearingMask = returnRedN();
+    teamTotal = returnRed();
   }
-  else{
-    var teamNotWearingMask = returnBlueN();
-    var teamTotal = returnBlue();
+  else if (!isRedTeam){
+    teamNotWearingMask = returnBlueN();
+    teamTotal = returnBlue();
   }
   var secondsDiff = 0;
   if (isRedTeam != null && isWearingMask != null){
