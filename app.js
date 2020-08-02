@@ -20,6 +20,7 @@ var newMinute;
 var newSecond;
 var atStore = false;
 var teamFlag = false;
+var readData;
 
 var firebaseConfig = {
   apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
@@ -236,12 +237,28 @@ function updateTime(){
 //commands to read database
 function returnRed(){
 
-  docRefR.get().then(function(doc) {
-    if (doc.exists) {
-        console.log(doc.get("yes"));
-    }
-});
-}
+  db.collection("samples").where("read", "==", true)
+                    .get()
+                    .then(function(querySnapshot) {
+                        querySnapshot.forEach(function(doc) {
+                            // doc.data() is never undefined for query doc snapshots
+                            console.log(doc.id, " => ", doc.data());
+                            var data = doc.data();
+                            readData = data["yes"];
+                        });
+                    })
+                    .catch(function(error) {
+                        console.log("Error getting documents: ", error);
+                    });
+                    console.log(readData);
+
+              }
+
+  //docRefR.get().then(function(doc) {
+  //  if (doc.exists) {
+  //      console.log(doc.get("yes"));
+  //  }
+//});
 
 
 // default
