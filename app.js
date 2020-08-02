@@ -336,7 +336,13 @@ function updateScore() {
       stopScore();
     }
   }
-  document.getElementById("scoreTracker").innerHTML = "Stardust: " + teamNotWearingMask + " " + teamTotal;
+  if (isWearingMask){
+    document.getElementById("scoreTracker").innerHTML = "Individual Stardust: " + teamNotWearingMask + " " + teamTotal;
+  }
+  else if (!isWearingMask){
+    document.getElementById("scoreTracker").innerHTML = "Team Stardust: " + teamNotWearingMask + " " + teamTotal;
+  }
+
 }
 
 
