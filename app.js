@@ -61,24 +61,16 @@ function updatePrevCoords(){
 
 function selectRedTeam(){
   isRedTeam = true;
-<<<<<<< HEAD
-    startScore();
+  startScore();
   window.alert(isRedTeam);
   document.getElementById("teamSelect").style.display = "none"
-=======
-  window.alert(isRedTeam);
->>>>>>> parent of 5a2d801... Merge branch 'master' of https://github.com/cerickson21/MLHSpaceHack
 }
 
 function selectBlueTeam(){
   isRedTeam = false;
-<<<<<<< HEAD
   startScore();
   window.alert(isRedTeam);
   document.getElementById("teamSelect").style.display = "none"
-=======
-  window.alert(isRedTeam);
->>>>>>> parent of 5a2d801... Merge branch 'master' of https://github.com/cerickson21/MLHSpaceHack
 }
 
 function updateYesR(){
