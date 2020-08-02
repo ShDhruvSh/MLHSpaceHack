@@ -21,6 +21,7 @@ var newSecond;
 var atStore = false;
 var teamFlag = false;
 var readData;
+var subtractingScore = 100;
 
 var firebaseConfig = {
   apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
@@ -283,7 +284,6 @@ function returnBlue(){
     console.log("Error getting document:", error);
 });
 }
-
 function updateScore() {
   newNow = new Date();
   newHour = newNow.getHours();
