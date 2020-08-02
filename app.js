@@ -18,6 +18,7 @@ var newNow;
 var newHour;
 var newMinute;
 var newSecond;
+var atStore = false;
 var teamFlag = false;
 var readData;
 
@@ -32,8 +33,8 @@ var firebaseConfig = {
   measurementId: "G-C9NHYCEZCR"
 };
 
+setInterval(updateTime, 1000);
 setInterval(updateScore, 1000);
-
 
 // Initialize Cloud Firestore through Firebase
 firebase.initializeApp(firebaseConfig);
@@ -136,9 +137,6 @@ function updateNoB(){
     console.error("Error adding document: ", error);
 });
 }
-
-
-
 function selectMask(){
   if(teamFlag)
   {
@@ -146,14 +144,14 @@ function selectMask(){
     document.body.style.background = "none";
     document.body.style.backgroundImage = "url('Background.jpg')"
     document.body.style.backgroundSize = "auto"
-    if(isRedTeam)
+    /*if(isRedTeam)
     {
       updateYesR();
     }
     else if(!isRedTeam)
     {
       updateYesB();
-    }
+    }*/
     window.alert("You've put on your spacesuit! Now time to collect stardust!");
     window.alert("Collect stardust by travelling to stores marked on the map, but be sure to hurry, as the amount of stardust you collect decreases the longer you're in the store!")
     document.getElementById("question").style.display = "none";
@@ -194,6 +192,14 @@ function startScore(){
     //the user is at home
   }
 }
+function stopScore(){
+  if(document.getElementById("main_title").innerHTML == "Spacing Out! (Earth)"){
+    isWearingMask = null;
+    window.alert("You have collected " + score + " stardust! This will be added to your team's total stardust!")
+  } else {
+    //the user is at a store
+  }
+}
 function updateScore() {
   newNow = new Date();
   newHour = newNow.getHours();
@@ -203,6 +209,7 @@ function updateScore() {
   var secondsDiff = 0;
   if (isRedTeam != null && isWearingMask != null){
     if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
+      atStore = true;
       secondsDiff = numNewSeconds - numSeconds;
       if (secondsDiff % 60 == 0 && secondsDiff != 0){
         if (isWearingMask){
@@ -214,10 +221,17 @@ function updateScore() {
       }
     }
     else {
-      //the user is at home
+      atStore = false;
+      stopScore();
     }
   }
-  document.getElementById("scoreTracker").innerHTML = "Score: " + score;
+  document.getElementById("scoreTracker").innerHTML = "Stardust: " + score;
+}
+function updateTime(){
+  newNow = new Date();
+  newHour = newNow.getHours();
+  newMinute = newNow.getMinutes();
+  newSecond = newNow.getSeconds();
   document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec";
 }
 
@@ -459,10 +473,10 @@ function getLocation(map, infoWindow){
                   // Call function get and set location
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
-          lat: 39.709451,
-          lng: -105.084629
-          //lat: position.coords.latitude,
-          //lng: position.coords.longitude
+          //lat: 39.709451,
+          //lng: -105.084629
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
         };
 
         prevLat = position.coords.latitude;
