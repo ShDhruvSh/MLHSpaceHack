@@ -211,7 +211,7 @@ function notWearingMask(){
     window.alert("Please select a team before answering this question.")
   }
 }
-function (){
+function startScore(){
   if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
     score = score + 1000;
   } else {
