@@ -136,6 +136,31 @@ function updateNoB(){
     console.error("Error adding document: ", error);
 });
 }
+
+function addRedStardust(value){
+  docRefR.update({
+    stardust: firebase.firestore.FieldValue.increment(value);
+  })
+  .then(function(docRefR) {
+    console.log("Document written with ID: ", docRefB.id);
+  })
+  .catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+}
+
+function addBlueStardust(value){
+  docRefB.update({
+    stardust: firebase.firestore.FieldValue.increment(value);
+  })
+  .then(function(docRefB) {
+    console.log("Document written with ID: ", docRefB.id);
+  })
+  .catch(function(error) {
+    console.error("Error adding document: ", error);
+});
+}
+
 function selectMask(){
   if(teamFlag)
   {
