@@ -139,7 +139,7 @@ function updateNoB(){
 
 function addRedStardust(value){
   docRefR.update({
-    stardust: firebase.firestore.FieldValue.increment(value);
+    stardust: firebase.firestore.FieldValue.increment(value)
   })
   .then(function(docRefR) {
     console.log("Document written with ID: ", docRefB.id);
@@ -151,7 +151,7 @@ function addRedStardust(value){
 
 function addBlueStardust(value){
   docRefB.update({
-    stardust: firebase.firestore.FieldValue.increment(value);
+    stardust: firebase.firestore.FieldValue.increment(value)
   })
   .then(function(docRefB) {
     console.log("Document written with ID: ", docRefB.id);
