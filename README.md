@@ -35,3 +35,15 @@ We learned not only how to use all of the different APIs included in our project
 We wanted to create not only a team score, but a safety level for each location/spaceship. This safety level would take into account the ratio of the number of people in the store compared to the capacity, as well as the percentage of mask-wearing people in the store.
 
 We would also like to create a functionality for user logins, so that people can keep their points.
+
+## Made by
+
+> Connor Erickson
+>
+> Dhruv Sharma
+>
+> Emily Amspoker
+>
+> Jacob Fanale
+> 
+> Lily Zook
