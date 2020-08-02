@@ -61,16 +61,12 @@ function updatePrevCoords(){
 
 function selectRedTeam(){
   isRedTeam = true;
-  startScore();
   window.alert(isRedTeam);
-  document.getElementById("teamSelect").style.display = "none"
 }
 
 function selectBlueTeam(){
   isRedTeam = false;
-  startScore();
   window.alert(isRedTeam);
-  document.getElementById("teamSelect").style.display = "none"
 }
 
 function updateYesR(){
