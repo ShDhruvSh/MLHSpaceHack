@@ -18,6 +18,7 @@ var newNow;
 var newHour;
 var newMinute;
 var newSecond;
+var teamFlag = false;
 var firebaseConfig = {
   apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
   authDomain: "space-65ce3.firebaseapp.com",
@@ -61,12 +62,18 @@ function updatePrevCoords(){
 
 function selectRedTeam(){
   isRedTeam = true;
-  window.alert(isRedTeam);
+  teamFlag = true;
+  window.alert("Welcome to the Red Team, the team of planet Mars!");
+  startScore();
+  document.getElementById("teamSelect").style.display = "none";
 }
 
 function selectBlueTeam(){
   isRedTeam = false;
-  window.alert(isRedTeam);
+  teamFlag = true;
+  window.alert("Welcome to the Blue Team, the team of planet Neptune!");
+  startScore();
+  document.getElementById("teamSelect").style.display = "none";
 }
 
 function updateYesR(){
@@ -128,38 +135,50 @@ function updateNoB(){
 }
 
 function selectMask(){
-  isWearingMask = true;
-  document.body.style.background = "none";
-  document.body.style.backgroundImage = "url('Background.jpg')"
-  document.body.style.backgroundSize = "auto"
-  if(isRedTeam)
+  if(teamFlag)
   {
-    updateYesR();
+    isWearingMask = true;
+    document.body.style.background = "none";
+    document.body.style.backgroundImage = "url('Background.jpg')"
+    document.body.style.backgroundSize = "auto"
+    if(isRedTeam)
+    {
+      updateYesR();
+    }
+    else if(!isRedTeam)
+    {
+      updateYesB();
+    }
+    window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!");
+    document.getElementById("question").style.display = "none";
   }
-  else if(!isRedTeam)
-  {
-    updateYesB();
+  else {
+    window.alert("Please select a team before answering this question.")
   }
-  window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!");
-  document.getElementById("question").style.display = "none";
-
 }
 
 function notWearingMask(){
-  isWearingMask = false;
-  document.body.style.background = "none";
-  document.body.style.backgroundColor = "rgba(255,0,0,0.9)";
-  document.body.style.backgroundSize = "200% 200%";
-  if(isRedTeam)
+  if(teamFlag)
   {
-    updateNoR();
-  }
-  else if(!isRedTeam)
+    isWearingMask = false;
+    document.body.style.background = "none";
+    document.body.style.backgroundColor = "rgba(255,0,0,0.9)";
+    document.body.style.backgroundSize = "200% 200%";
+    if(isRedTeam)
+    {
+      updateNoR();
+    }
+    else if(!isRedTeam)
+    {
+      updateNoB();
+    }
+    window.alert("Please do your best to find a mask and minimize exposure to others.")
+    document.getElementById("question").style.display = "none";
+    }
+  else
   {
-    updateNoB();
+    window.alert("Please select a team before answering this question.")
   }
-  window.alert("You're a terrible human being REEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE")
-  document.getElementById("question").style.display = "none";
 }
 function startScore(){
   if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
