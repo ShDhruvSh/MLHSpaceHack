@@ -37,10 +37,11 @@ setInterval(updateScore, 1000);
 
 // Initialize Cloud Firestore through Firebase
 firebase.initializeApp(firebaseConfig);
+firebase.analytics();
 var db = firebase.firestore();
 
-const docRefR = db.doc("samples/red");
-const docRefB = db.doc("samples/blue");
+var docRefR = db.doc("samples/red");
+var docRefB = db.doc("samples/blue");
 const increment = firebase.firestore.FieldValue.increment(1);
 
 
@@ -68,6 +69,7 @@ function selectRedTeam(){
   window.alert("Welcome to the Red Team, the team of planet Mars!");
   startScore();
   document.getElementById("teamSelect").style.display = "none";
+  returnRedY();
 }
 
 function selectBlueTeam(){
@@ -90,7 +92,6 @@ function updateYesR(){
   .catch(function(error) {
     console.error("Error adding document: ", error);
 });
-  returnRed();
 }
 
 
@@ -221,30 +222,62 @@ function updateScore() {
 }
 
 //commands to read database
-function returnRed(){
+function returnRedY(){
 
-  db.collection("samples").where("read", "==", true)
-                    .get()
-                    .then(function(querySnapshot) {
-                        querySnapshot.forEach(function(doc) {
-                            // doc.data() is never undefined for query doc snapshots
-                            console.log(doc.id, " => ", doc.data());
-                            var data = doc.data();
-                            readData = data["yes"];
-                        });
-                    })
-                    .catch(function(error) {
-                        console.log("Error getting documents: ", error);
-                    });
-                    console.log(readData);
+  docRefR.get().then(function(doc) {
+    if (doc.exists) {
+        return doc.data().yes;
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+}
 
-              }
+function returnRedN(){
 
-  //docRefR.get().then(function(doc) {
-  //  if (doc.exists) {
-  //      console.log(doc.get("yes"));
-  //  }
-//});
+  docRefR.get().then(function(doc) {
+    if (doc.exists) {
+        return doc.data().no;
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+}
+
+function returnBlueY(){
+
+  docRefB.get().then(function(doc) {
+    if (doc.exists) {
+        return doc.data().yes;
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+}
+
+function returnBlueN(){
+
+  docRefB.get().then(function(doc) {
+    if (doc.exists) {
+        return doc.data().no;
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+}
+
 
 
 // default
