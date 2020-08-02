@@ -72,6 +72,11 @@ function selectRedTeam(){
   startScore();
   document.getElementById("teamSelect").style.display = "none";
   returnRedY();
+  document.getElementById("teamScore").style.color = "#ff4a4a";
+  document.getElementById("teamPercent").style.color = "#ff4a4a";
+
+
+
 }
 
 function selectBlueTeam(){
@@ -80,6 +85,9 @@ function selectBlueTeam(){
   window.alert("Welcome to the Blue Team, the team of planet Neptune!");
   startScore();
   document.getElementById("teamSelect").style.display = "none";
+  document.getElementById("teamScore").style.color = "#4af0ff";
+  document.getElementById("teamPercent").style.color = "#4af0ff";
+
 }
 
 function updateYesR(){
@@ -266,7 +274,9 @@ function returnRed(){
 
   docRefR.get().then(function(doc) {
     if (doc.exists) {
-      document.getElementById("scoreTracker").innerHTML = "Individual Stardust: " + doc.data().no + " " + doc.data().total;
+      document.getElementById("teamScore").innerHTML = "Team Stardust: " + doc.data().stardust;
+      document.getElementById("teamPercent").innerHTML = "Team Mask Percent: " + (Math.floor(doc.data().yes/doc.data.total)) + "%";
+      document.getElementById("teamScore").style.color = "#f5425d";
     } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -279,7 +289,11 @@ function returnBlue(){
 
   docRefB.get().then(function(doc) {
     if (doc.exists) {
-        document.getElementById("scoreTracker").innerHTML = "Individual Stardust: " + doc.data().no + " " + doc.data().total;
+        document.getElementById("teamScore").innerHTML = "Team Stardust: " + doc.data().stardust;
+        var percent = Math.floor((doc.data().yes/doc.data().total) * 100);
+        console.log(percent);
+        document.getElementById("teamPercent").innerHTML = "Team Mask Percent: " + percent + "%";
+        document.getElementById("teamScore").style.color = "lightblue";
     } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -288,6 +302,7 @@ function returnBlue(){
     console.log("Error getting document:", error);
 });
 }
+
 function updateScore() {
   newNow = new Date();
   newHour = newNow.getHours();
@@ -296,6 +311,7 @@ function updateScore() {
   numNewSeconds = newHour*360 + newMinute*60 + newSecond;
   var secondsDiff = 0;
   if (isRedTeam){
+    returnRed();
     docRefR.get().then(function(doc) {
       if (doc.exists) {
         if (isRedTeam != null && isWearingMask != null){
@@ -324,8 +340,10 @@ function updateScore() {
     }).catch(function(error) {
         console.log("Error getting document:", error);
     });
+
   }
   else if (!isRedTeam){
+    returnBlue();
     docRefB.get().then(function(doc) {
       if (doc.exists) {
         if (isRedTeam != null && isWearingMask != null){
@@ -353,13 +371,13 @@ function updateScore() {
     }).catch(function(error) {
         console.log("Error getting document:", error);
     });
-  //  teamTotal = returnBlue();
+
   }
   if (isWearingMask){
-    document.getElementById("scoreTracker").innerHTML = "Individual Stardust: " + score;
+    document.getElementById("scoreTracker").innerHTML = "Individual Stardust: " + Math.floor(score);
   }
   else if (!isWearingMask){
-    document.getElementById("scoreTracker").innerHTML = "Individual Stardust: " + score;
+    document.getElementById("scoreTracker").innerHTML = "Individual Stardust: " + Math.floor(score);
   }
 
 }
