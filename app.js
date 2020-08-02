@@ -32,7 +32,7 @@ var firebaseConfig = {
   appId: "1:62019877260:web:115d17a6348d265027bea9",
   measurementId: "G-C9NHYCEZCR"
 };
-
+setInterval(initMap, 60000);
 setInterval(updateTime, 1000);
 setInterval(updateScore, 1000);
 
