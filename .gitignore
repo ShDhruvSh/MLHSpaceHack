@@ -12,3 +12,4 @@
 #other
 **/*.class.DS_Store
 **/*.vs
+*.vs/**
