@@ -231,7 +231,12 @@ function updateTime(){
   newHour = newNow.getHours();
   newMinute = newNow.getMinutes();
   newSecond = newNow.getSeconds();
-  document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec";
+  if (newMinute < 10){
+      document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":0" + newMinute + " " + newSecond + " sec";
+  }
+  else{
+    document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec";
+  }
 }
 
 //commands to read database
