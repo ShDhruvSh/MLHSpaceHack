@@ -537,7 +537,7 @@ function getLocation(map, infoWindow){
         var request = {
         location: pos,
         radius: '10',
-        query: 'store'
+        query: 'supermarket'
       };
 
       service = new google.maps.places.PlacesService(map);
