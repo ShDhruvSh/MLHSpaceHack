@@ -169,14 +169,14 @@ function selectMask(){
     document.body.style.background = "none";
     document.body.style.backgroundImage = "url('Background.jpg')"
     document.body.style.backgroundSize = "auto"
-    /*if(isRedTeam)
+    if(isRedTeam)
     {
       updateYesR();
     }
     else if(!isRedTeam)
     {
       updateYesB();
-    }*/
+    }
     window.alert("You've put on your spacesuit! Now time to collect stardust!");
     window.alert("Collect stardust by travelling to stores marked on the map, but be sure to hurry, as the amount of stardust you collect decreases the longer you're in the store!")
     document.getElementById("question").style.display = "none";
@@ -303,7 +303,7 @@ function updateScore() {
             secondsDiff = numNewSeconds - numSeconds;
             if (secondsDiff % 60 == 0 && secondsDiff != 0){
               if (isWearingMask){
-                score = score - (100-(90*((doc.data().total-doc.data().no)/doc.data().no)));
+                score = score - (100-(90*((doc.data().total-doc.data().no)/doc.data().total)));
               }
               else{
                 score = score - 100;
@@ -333,7 +333,7 @@ function updateScore() {
             secondsDiff = numNewSeconds - numSeconds;
             if (secondsDiff % 60 == 0 && secondsDiff != 0){
               if (isWearingMask){
-                score = score - (100-(90*((doc.data().total-doc.data().no)/doc.data().no)));
+                score = score - (100-(90*((doc.data().total-doc.data().no)/doc.data().total)));
               }
               else{
                 score = score - 100;
