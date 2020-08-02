@@ -32,7 +32,6 @@ var firebaseConfig = {
   appId: "1:62019877260:web:115d17a6348d265027bea9",
   measurementId: "G-C9NHYCEZCR"
 };
-
 setInterval(updateTime, 1000);
 setInterval(updateScore, 1000);
 
@@ -537,7 +536,7 @@ function getLocation(map, infoWindow){
         var request = {
         location: pos,
         radius: '10',
-        query: 'store'
+        query: 'supermarket'
       };
 
       service = new google.maps.places.PlacesService(map);

@@ -1,4 +1,8 @@
 
+<<<<<<< HEAD
+.vs/slnx.sqlite
+.vs/slnx.sqlite
+=======
 
 # Package Files #
 *.jar
@@ -12,3 +16,5 @@
 #other
 **/*.class.DS_Store
 **/*.vs
+*.vs/**
+>>>>>>> dbb3d85f1ab181f3d329854ac83ce36d2151ac40
