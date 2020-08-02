@@ -33,6 +33,7 @@ var firebaseConfig = {
   appId: "1:62019877260:web:115d17a6348d265027bea9",
   measurementId: "G-C9NHYCEZCR"
 };
+
 setInterval(updateTime, 1000);
 setInterval(updateScore, 30000);
 
@@ -210,7 +211,7 @@ function notWearingMask(){
     window.alert("Please select a team before answering this question.")
   }
 }
-function startScore(){
+function (){
   if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
     score = score + 1000;
   } else {
@@ -265,7 +266,7 @@ function returnRed(){
 
   docRefR.get().then(function(doc) {
     if (doc.exists) {
-      document.getElementById("scoreTracker").innerHTML = "Team Stardust: " + doc.data().no + " " + doc.data().total;
+      document.getElementById("scoreTracker").innerHTML = "Individual Stardust: " + doc.data().no + " " + doc.data().total;
     } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -278,7 +279,7 @@ function returnBlue(){
 
   docRefB.get().then(function(doc) {
     if (doc.exists) {
-        document.getElementById("scoreTracker").innerHTML = "Team Stardust: " + doc.data().no + " " + doc.data().total;
+        document.getElementById("scoreTracker").innerHTML = "Individual Stardust: " + doc.data().no + " " + doc.data().total;
     } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -358,7 +359,7 @@ function updateScore() {
     document.getElementById("scoreTracker").innerHTML = "Individual Stardust: " + score;
   }
   else if (!isWearingMask){
-    document.getElementById("scoreTracker").innerHTML = "Team Stardust: " + score;
+    document.getElementById("scoreTracker").innerHTML = "Individual Stardust: " + score;
   }
 
 }
