@@ -19,6 +19,7 @@ var newHour;
 var newMinute;
 var newSecond;
 var teamFlag = false;
+
 var firebaseConfig = {
   apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
   authDomain: "space-65ce3.firebaseapp.com",
@@ -88,6 +89,7 @@ function updateYesR(){
   .catch(function(error) {
     console.error("Error adding document: ", error);
 });
+  returnRed();
 }
 
 
@@ -119,7 +121,6 @@ function updateYesB(){
 });
 }
 
-
 function updateNoB(){
 
   docRefB.update({
@@ -133,6 +134,8 @@ function updateNoB(){
     console.error("Error adding document: ", error);
 });
 }
+
+
 
 function selectMask(){
   if(teamFlag)
@@ -216,6 +219,15 @@ function updateScore() {
   document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec";
 }
 
+//commands to read database
+function returnRed(){
+
+  docRefR.get().then(function(doc) {
+    if (doc.exists) {
+        console.log(doc.get("yes"));
+    }
+});
+}
 
 
 // default
@@ -397,10 +409,10 @@ function getLocation(map, infoWindow){
                   // Call function get and set location
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
-          lat: 39.709451,
-          lng: -105.084629
-          //lat: position.coords.latitude,
-          //lng: position.coords.longitude
+          //lat: 39.709451,
+          //lng: -105.084629
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
         };
 
         prevLat = position.coords.latitude;
