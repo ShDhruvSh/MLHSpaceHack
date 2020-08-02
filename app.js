@@ -19,6 +19,7 @@ var newHour;
 var newMinute;
 var newSecond;
 var teamFlag = false;
+
 var firebaseConfig = {
   apiKey: "AIzaSyCshzo4pnxHj7zkaDrR4tthwotTleGS4JY",
   authDomain: "space-65ce3.firebaseapp.com",
@@ -40,7 +41,8 @@ var db = firebase.firestore();
 const docRefR = db.doc("samples/red");
 const docRefB = db.doc("samples/blue");
 const increment = firebase.firestore.FieldValue.increment(1);
-//const increment = 69;
+//const increment = 21;
+
 
 function calcDistanceTravelled(lat1, lat2, long1, long2) {
   lat1 = lat1/(180/Math.PI);
@@ -86,6 +88,7 @@ function updateYesR(){
   .catch(function(error) {
     console.error("Error adding document: ", error);
 });
+  returnRed();
 }
 
 
@@ -117,7 +120,6 @@ function updateYesB(){
 });
 }
 
-
 function updateNoB(){
 
   docRefB.update({
@@ -131,6 +133,8 @@ function updateNoB(){
     console.error("Error adding document: ", error);
 });
 }
+
+
 
 function selectMask(){
   if(teamFlag)
@@ -208,6 +212,15 @@ function updateScore() {
   document.getElementById("timeTracker").innerHTML = "Time: " + newHour + ":" + newMinute + " " + newSecond + " sec";
 }
 
+//commands to read database
+function returnRed(){
+
+  docRefR.get().then(function(doc) {
+    if (doc.exists) {
+        console.log(doc.get("yes"));
+    }
+});
+}
 
 
 // default
