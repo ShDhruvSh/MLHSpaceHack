@@ -276,6 +276,7 @@ function returnRed(){
     if (doc.exists) {
       document.getElementById("teamScore").innerHTML = "Team Stardust: " + doc.data().stardust;
       var percent = Math.floor((doc.data().yes/doc.data().total) * 100);
+      console.log(percent);
       document.getElementById("teamPercent").innerHTML = "Team Mask Percent: " + percent + "%";
     } else {
         // doc.data() will be undefined in this case
