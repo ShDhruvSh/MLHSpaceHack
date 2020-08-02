@@ -33,7 +33,7 @@ var firebaseConfig = {
   measurementId: "G-C9NHYCEZCR"
 };
 setInterval(updateTime, 1000);
-setInterval(updateScore, 1000);
+setInterval(updateScore, 30000);
 
 // Initialize Cloud Firestore through Firebase
 firebase.initializeApp(firebaseConfig);
