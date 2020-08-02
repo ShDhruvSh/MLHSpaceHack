@@ -253,28 +253,11 @@ function returnRedY(){
 });
 }
 
-function returnRedN(){
-
-  docRefR.get().then(function(doc) {
-    if (doc.exists) {
-        return doc.data().no;
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    }
-}).catch(function(error) {
-    console.log("Error getting document:", error);
-});
-}
-
 function returnRed(){
 
   docRefR.get().then(function(doc) {
     if (doc.exists) {
-        var returnPeople = 0;
-        returnPeople = doc.data().total;
-        console.log(returnPeople);
-        return returnPeople;
+      document.getElementById("scoreTracker").innerHTML = "Team Stardust: " + doc.data().no + " " + doc.data().total;
     } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -284,39 +267,14 @@ function returnRed(){
 });
 }
 
-function returnBlueY(){
 
-  docRefB.get().then(function(doc) {
-    if (doc.exists) {
-        return doc.data().yes;
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    }
-}).catch(function(error) {
-    console.log("Error getting document:", error);
-});
-}
 
-function returnBlueN(){
-
-  docRefB.get().then(function(doc) {
-    if (doc.exists) {
-        return doc.data().no;
-    } else {
-        // doc.data() will be undefined in this case
-        console.log("No such document!");
-    }
-}).catch(function(error) {
-    console.log("Error getting document:", error);
-});
-}
 
 function returnBlue(){
 
   docRefB.get().then(function(doc) {
     if (doc.exists) {
-        return doc.data().total;
+        document.getElementById("scoreTracker").innerHTML = "Team Stardust: " + doc.data().no + " " + doc.data().total;
     } else {
         // doc.data() will be undefined in this case
         console.log("No such document!");
@@ -335,13 +293,12 @@ function updateScore() {
   var teamNotWearingMask = "";
   var teamTotal = "";
   if (isRedTeam){
-    teamNotWearingMask = returnRedN();
-    teamTotal = returnRed();
+    returnRed();
   }
-  //else if (!isRedTeam){
-  //  teamNotWearingMask = returnBlueN();
+  else if (!isRedTeam){
+    returnBlue();
   //  teamTotal = returnBlue();
-  //}
+}
   var secondsDiff = 0;
   if (isRedTeam != null && isWearingMask != null){
     if(document.getElementById("main_title").innerHTML != "Spacing Out! (Earth)"){
