@@ -264,6 +264,20 @@ function returnRedN(){
 });
 }
 
+function returnRed(){
+
+  docRefR.get().then(function(doc) {
+    if (doc.exists) {
+        return doc.data().total;
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+}
+
 function returnBlueY(){
 
   docRefB.get().then(function(doc) {
@@ -291,6 +305,21 @@ function returnBlueN(){
     console.log("Error getting document:", error);
 });
 }
+
+function returnBlue(){
+
+  docRefB.get().then(function(doc) {
+    if (doc.exists) {
+        return doc.data().total;
+    } else {
+        // doc.data() will be undefined in this case
+        console.log("No such document!");
+    }
+}).catch(function(error) {
+    console.log("Error getting document:", error);
+});
+}
+
 
 
 
