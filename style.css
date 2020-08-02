@@ -33,6 +33,33 @@
   background-color: #243d4c;
   padding: 0% 0.5% 0.5% 0.5%;
 }
+
+#redTeamButton {
+    background-color: #ff0000; /* Red */
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 3px;
+    transition-duration: 0.4s;
+    position: relative;
+}
+#blueTeamButton {
+    background-color: #0000FF; /* Blue */
+    border: none;
+    color: white;
+    padding: 10px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    border-radius: 3px;
+    transition-duration: 0.4s;
+    position: relative;
+}
 #scoreTracker{
   width: 10%;
   padding-left: 20px;
