@@ -192,7 +192,8 @@ function startScore(){
 }
 function stopScore(){
   if(document.getElementById("main_title").innerHTML == "Spacing Out! (Earth)"){
-    window.alert("You have collected " + score + "stardust! This will be added to your team's total stardust!")
+    isWearingMask = null;
+    window.alert("You have collected " + score + " stardust! This will be added to your team's total stardust!")
   } else {
     //the user is at a store
   }
@@ -422,10 +423,10 @@ function getLocation(map, infoWindow){
                   // Call function get and set location
       navigator.geolocation.getCurrentPosition(function(position) {
         var pos = {
-          lat: 39.709451,
-          lng: -105.084629
-          //lat: position.coords.latitude,
-          //lng: position.coords.longitude
+          //lat: 39.709451,
+          //lng: -105.084629
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
         };
 
         prevLat = position.coords.latitude;
