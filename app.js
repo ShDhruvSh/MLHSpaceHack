@@ -152,7 +152,8 @@ function selectMask(){
     {
       updateYesB();
     }
-    window.alert("You are a good soul and an amazing human being thank you for existing on this planet I feel very safe now because of you!");
+    window.alert("You've put on your spacesuit! Now time to collect stardust!");
+    window.alert("Collect stardust by travelling to stores marked on the map, but be sure to hurry, as the amount of stardust you collect decreases the longer you're in the store!")
     document.getElementById("question").style.display = "none";
   }
   else {
@@ -175,7 +176,8 @@ function notWearingMask(){
     {
       updateNoB();
     }
-    window.alert("Please do your best to find a mask and minimize exposure to others.")
+    window.alert("You are taking a great risk by venturing out into space without a spacesuit (mask)! Be sure to minimize exposure to space, and avoid other astronauts as well!.")
+    window.alert("Collect stardust by travelling to stores marked on the map, but be sure to hurry, as the amount of stardust you collect decreases the longer you're in the store!")
     document.getElementById("question").style.display = "none";
     }
   else
