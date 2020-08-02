@@ -303,7 +303,7 @@ function updateScore() {
             secondsDiff = numNewSeconds - numSeconds;
             if (secondsDiff % 60 == 0 && secondsDiff != 0){
               if (isWearingMask){
-                score = score - (100-(90*((doc.data().total-doc.data().no)/doc.data().no)));
+                score = score - (100-(90*((doc.data().total-doc.data().no)/doc.data().total)));
               }
               else{
                 score = score - 100;
@@ -333,7 +333,7 @@ function updateScore() {
             secondsDiff = numNewSeconds - numSeconds;
             if (secondsDiff % 60 == 0 && secondsDiff != 0){
               if (isWearingMask){
-                score = score - (100-(90*((doc.data().total-doc.data().no)/doc.data().no)));
+                score = score - (100-(90*((doc.data().total-doc.data().no)/doc.data().total)));
               }
               else{
                 score = score - 100;
